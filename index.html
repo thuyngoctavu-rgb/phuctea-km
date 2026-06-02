@@ -36,7 +36,7 @@
 
   /* MAIN */
   .main { margin-left: 220px; padding: 28px 32px; transition: margin-right .3s ease; }
-  .main.drawer-open { margin-right: 380px; }
+  .main.drawer-open { margin-right: 600px; }
 
   /* HEADER */
   .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
@@ -166,7 +166,7 @@
   .table-scroll { overflow-x: auto; }
   .owner-tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: var(--border); color: var(--text); }
 
-  .notice-bar { background: linear-gradient(90deg, rgba(249,115,22,.12), rgba(249,115,22,.04)); border: 1px solid rgba(249,115,22,.2); border-radius: 10px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 13px; }
+  .notice-bar { background: linear-gradient(90deg, rgba(249,115,22,.12), rgba(249,115,22,.04)); border: 1px solid rgba(249,115,22,.2); border-radius: 10px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 13px; flex-wrap: nowrap; }
   .notice-bar strong { color: var(--accent); }
 
   @keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
@@ -221,7 +221,7 @@
 
   /* ========== DRAWER ========== */
   .drawer {
-    position: fixed; top: 0; right: -400px; bottom: 0; width: 380px;
+    position: fixed; top: 0; right: -620px; bottom: 0; width: 600px;
     background: var(--surface); border-left: 1px solid var(--border);
     z-index: 200; display: flex; flex-direction: column;
     transition: right .3s cubic-bezier(.4,0,.2,1);
@@ -402,6 +402,56 @@
     position: sticky; bottom: 0; background: var(--surface);
   }
 
+  /* Dynamic rows */
+  .dyn-add-btn {
+    padding: 6px 12px; border-radius: 7px; font-size: 12px; font-weight: 700;
+    background: rgba(249,115,22,.12); color: var(--accent);
+    border: 1px solid rgba(249,115,22,.3); cursor: pointer;
+    font-family: 'Be Vietnam Pro', sans-serif; white-space: nowrap;
+    transition: all .15s;
+  }
+  .dyn-add-btn:hover { background: rgba(249,115,22,.25); }
+  .dyn-del-btn {
+    width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+    background: rgba(239,68,68,.1); color: var(--danger);
+    border: 1px solid rgba(239,68,68,.25); cursor: pointer;
+    font-size: 13px; display: flex; align-items: center; justify-content: center;
+    transition: all .15s; margin-top: 2px;
+  }
+  .dyn-del-btn:hover { background: rgba(239,68,68,.25); }
+
+  /* Thông tin CH */
+  .ch-filter {
+    padding:7px 16px; border-radius:99px; font-size:13px; font-weight:600;
+    cursor:pointer; border:1.5px solid var(--border); background:var(--surface);
+    color:var(--muted); font-family:'Be Vietnam Pro',sans-serif; transition:all .2s;
+  }
+  .ch-filter.active, .ch-filter:hover { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .ch-card {
+    background:var(--surface); border:1.5px solid var(--border); border-radius:14px;
+    padding:16px; cursor:pointer; transition:all .2s;
+  }
+  .ch-card:hover { border-color:var(--accent); box-shadow:0 4px 20px rgba(232,57,107,.1); transform:translateY(-2px); }
+
+  /* Toggle switch */
+  .ch-toggle-wrap { display:flex;align-items:center;gap:8px; }
+  .ch-toggle { position:relative;width:44px;height:24px;flex-shrink:0; }
+  .ch-toggle input { opacity:0;width:0;height:0;position:absolute; }
+  .ch-toggle-slider {
+    position:absolute;inset:0;border-radius:99px;cursor:pointer;
+    background:#d1d5db;transition:background .25s;
+  }
+  .ch-toggle-slider:before {
+    content:'';position:absolute;width:18px;height:18px;border-radius:50%;
+    background:#fff;top:3px;left:3px;transition:transform .25s;
+    box-shadow:0 1px 4px rgba(0,0,0,.2);
+  }
+  .ch-toggle input:checked + .ch-toggle-slider { background:#22c55e; }
+  .ch-toggle input:checked + .ch-toggle-slider:before { transform:translateX(20px); }
+  .ch-toggle-label { font-size:12px;font-weight:700; }
+  .ch-toggle-label.on  { color:#16a34a; }
+  .ch-toggle-label.off { color:#ef4444; }
+
   /* Toast */
   .toast {
     position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
@@ -423,14 +473,14 @@
   </div>
   <nav class="nav">
     <div class="nav-label">Tổng quan</div>
-    <div class="nav-item active" onclick="setNav(this)"><span class="icon">📋</span> CTKM</div>
+    <div class="nav-item active" onclick="showCTKM(this)"><span class="icon">📋</span> CTKM</div>
     <div class="nav-label">Chương trình</div>
     <div class="nav-item" onclick="setNav(this)"><span class="icon">🎁</span> Đang chạy</div>
     <div class="nav-item" onclick="setNav(this)"><span class="icon">📅</span> Sắp triển khai</div>
     <div class="nav-item" onclick="setNav(this)"><span class="icon">📂</span> Lưu trữ</div>
     <div class="nav-label">Công việc</div>
     <div class="nav-item" onclick="setNav(this)"><span class="icon">✅</span> Checklist</div>
-    <div class="nav-item" onclick="setNav(this)"><span class="icon">📁</span> File tài liệu</div>
+    <div class="nav-item" onclick="showCH(this)"><span class="icon">🏪</span> Thông tin CH</div>
     <div class="nav-item" onclick="setNav(this)"><span class="icon">👥</span> Nhân sự</div>
   </nav>
 </div>
@@ -471,7 +521,7 @@
   <div class="notice-bar">
     <span style="font-size:18px">⚡</span>
     <span><strong>3 chương trình</strong> sắp hết hạn trong 48h tới — <strong>Flash Sale cuối tuần</strong> cần cập nhật thông tin trước 17:00 hôm nay</span>
-    <button class="btn btn-primary" style="margin-left:auto;padding:6px 14px;font-size:12px;white-space:nowrap">Xem ngay →</button>
+    <button class="btn btn-primary" style="margin-left:auto;padding:6px 14px;font-size:12px;white-space:nowrap;flex-shrink:0">Xem ngay →</button>
   </div>
 
   <!-- STATS -->
@@ -518,11 +568,10 @@
         </select>
       </div>
       <div class="filter-chips">
-        <button class="chip active" onclick="filterChip(this)">Tất cả</button>
-        <button class="chip" onclick="filterChip(this)">🟢 Đang chạy</button>
-        <button class="chip" onclick="filterChip(this)">🟡 Sắp tới</button>
-        <button class="chip" onclick="filterChip(this)">⚫ Đã kết thúc</button>
-        <button class="chip" onclick="filterChip(this)">🔴 Khẩn cấp</button>
+        <button class="chip active" onclick="filterByStatus('all', this)">Tất cả</button>
+        <button class="chip" onclick="filterByStatus('s-live', this)">🟢 Đang chạy</button>
+        <button class="chip" onclick="filterByStatus('s-upcoming', this)">🟡 Sắp tới</button>
+        <button class="chip" onclick="filterByStatus('s-ended', this)">⚫ Đã kết thúc</button>
       </div>
       <div class="table-scroll">
         <table>
@@ -534,7 +583,7 @@
               <th>THỜI GIAN</th>
               <th>TIẾN ĐỘ</th>
               <th>TRẠNG THÁI</th>
-              <th>PHỤ TRÁCH</th>
+              <th>NS NHẬN THÔNG TIN</th>
               <th style="width:90px"></th>
             </tr>
           </thead>
@@ -617,36 +666,108 @@
 
   </div>
 
-  <!-- CHECKLIST -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><div class="dot" style="background:var(--accent3)"></div>Checklist công việc hôm nay</div>
-      <div style="font-size:12px;color:var(--muted)">17/25 hoàn thành</div>
+
+  <!-- ===== TRANG THÔNG TIN CH ===== -->
+  <div id="page-ch" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <h2 style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;">
+        🏪 Hệ thống cửa hàng
+        <span style="font-size:13px;color:var(--muted);font-weight:400" id="ch-total-label">— bấm vào thẻ để xem chi tiết</span>
+      </h2>
+      <button onclick="chOpenAddModal()" style="display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;transition:background .2s;white-space:nowrap;" onmouseover="this.style.background='#c9235a'" onmouseout="this.style.background='var(--accent)'">
+        ＋ Thêm cửa hàng mới
+      </button>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);">
-      <div class="checklist">
-        <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.8px;padding:8px 0 4px;">🎯 Triển khai KM</div>
-        <div class="check-item done" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Tạo mã khuyến mãi trên hệ thống</div><span class="check-who">Ngọc</span></div>
-        <div class="check-item done" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Upload banner lên Zalo OA</div><span class="check-who">Tài</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Duyệt nội dung Facebook post</div><span class="check-who">Trinh</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Test link ưu đãi trên web</div><span class="check-who">Lan Anh</span></div>
-        <div class="check-item done" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Gửi brief cho team CSKH</div><span class="check-who">Ngọc</span></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+      <button class="ch-filter active" onclick="chFilter('all',this)">Tất cả (<span id="ch-cnt">0</span>)</button>
+      <button class="ch-filter" onclick="chFilter('Miền Nam',this)">🏙️ Miền Nam</button>
+      <button class="ch-filter" onclick="chFilter('Miền Tây',this)">🌾 Miền Tây</button>
+      <button class="ch-filter" onclick="chFilter('Miền Trung',this)">🏔️ Miền Trung</button>
+      <button class="ch-filter" onclick="chFilter('Miền Bắc',this)">❄️ Miền Bắc</button>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border);border-radius:99px;padding:7px 16px;flex:1;min-width:200px;max-width:380px;">
+        <span style="color:var(--muted)">🔍</span>
+        <input type="text" id="ch-search" placeholder="Tìm tên / địa chỉ..." oninput="chSearch(this.value)"
+          style="border:none;outline:none;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--text);flex:1;background:none;">
       </div>
-      <div class="checklist" style="border-left:1px solid var(--border)">
-        <div style="font-size:11px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.8px;padding:8px 0 4px;">📢 Truyền thông</div>
-        <div class="check-item done" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Schedule post Facebook 8h sáng</div><span class="check-who">Trinh</span></div>
-        <div class="check-item done" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Gửi Zalo broadcast đợt 1</div><span class="check-who">Tài</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">SMS blast khách VIP (3,500 số)</div><span class="check-who">Lan Anh</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Gửi email newsletter</div><span class="check-who">Trinh</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Check hiển thị pop-up web</div><span class="check-who">Ngọc</span></div>
+    </div>
+    <div id="ch-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;"></div>
+    <div id="ch-empty" style="display:none;text-align:center;color:var(--muted);padding:60px 0;font-size:14px;">Không tìm thấy cửa hàng nào</div>
+  </div>
+
+  <!-- MODAL THÔNG TIN CH -->
+  <div id="ch-modal-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);z-index:600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;" onclick="chCloseModal(event)">
+    <div id="ch-modal" style="background:var(--surface);border-radius:18px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:0 24px 60px rgba(0,0,0,.25);padding:28px;position:relative;">
+      <button onclick="chModalClose()" style="position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:none;background:var(--border);color:var(--muted);cursor:pointer;font-size:15px;z-index:2;">✕</button>
+      <div id="ch-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- MODAL THÊM CỬA HÀNG MỚI -->
+  <div id="ch-add-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);z-index:700;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;" onclick="if(event.target===this)chCloseAddModal()">
+    <div id="ch-add-modal" style="background:var(--surface);border-radius:18px;width:540px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:0 24px 60px rgba(0,0,0,.25);padding:28px;position:relative;">
+      <button onclick="chCloseAddModal()" style="position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;border:none;background:var(--border);color:var(--muted);cursor:pointer;font-size:15px;z-index:2;">✕</button>
+
+      <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:700;margin-bottom:4px;">＋ Thêm cửa hàng mới</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:20px;">Điền thông tin cơ bản, có thể chỉnh thêm sau</div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🏪 Tên cửa hàng *</div>
+            <input id="new-ten" type="text" placeholder="VD: NINH KIỀU" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;box-sizing:border-box;">
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🔖 Mã cửa hàng *</div>
+            <input id="new-ma" type="text" placeholder="VD: PHUCTEA200" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;box-sizing:border-box;">
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">📍 Địa chỉ *</div>
+          <textarea id="new-diachi" rows="2" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;resize:vertical;box-sizing:border-box;"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">📞 Liên hệ</div>
+            <input id="new-lienhe" type="text" placeholder="VD: 0901234567" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;box-sizing:border-box;">
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🕐 Giờ hoạt động</div>
+            <input id="new-gio" type="text" placeholder="VD: 24-27" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;box-sizing:border-box;">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🏗️ Mô hình</div>
+            <select id="new-mohinh" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;box-sizing:border-box;">
+              <option>Standard</option><option>Take away</option><option>Xe đẩy</option>
+            </select>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🌏 Miền</div>
+            <select id="new-mien" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;box-sizing:border-box;">
+              <option>Miền Nam</option><option>Miền Tây</option><option>Miền Trung</option><option>Miền Bắc</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🧪 Công thức</div>
+          <select id="new-congthuc" style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;box-sizing:border-box;">
+            <option>Đường Chung</option><option>Tách Đường</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🛵 Chính sách giao hàng</div>
+          <textarea id="new-ship" rows="3" placeholder="Nhập chính sách giao hàng..." style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);outline:none;resize:vertical;box-sizing:border-box;"></textarea>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">📝 Lưu ý</div>
+          <textarea id="new-luuy" rows="2" placeholder="Ghi chú thêm nếu cần..." style="width:100%;padding:8px 12px;border-radius:8px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;border:1.5px solid rgba(245,158,11,.4);background:rgba(245,158,11,.06);color:var(--text);outline:none;resize:vertical;box-sizing:border-box;"></textarea>
+        </div>
       </div>
-      <div class="checklist" style="border-left:1px solid var(--border)">
-        <div style="font-size:11px;font-weight:700;color:var(--accent4);text-transform:uppercase;letter-spacing:.8px;padding:8px 0 4px;">📊 Theo dõi & báo cáo</div>
-        <div class="check-item done" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Chụp số liệu đầu ngày</div><span class="check-who">Tài</span></div>
-        <div class="check-item done" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Update sheet theo dõi đơn hàng</div><span class="check-who">Lan Anh</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Báo cáo kết quả buổi trưa</div><span class="check-who">Ngọc</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Tổng kết cuối ngày gửi nhóm</div><span class="check-who">Trinh</span></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-label">Lưu file báo cáo vào Drive</div><span class="check-who">Lan Anh</span></div>
+
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <button onclick="chCloseAddModal()" style="flex:1;padding:12px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);font-size:13px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;">Huỷ</button>
+        <button onclick="chSubmitNewStore()" style="flex:2;padding:12px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;" onmouseover="this.style.background='#c9235a'" onmouseout="this.style.background='var(--accent)'">＋ Thêm cửa hàng</button>
       </div>
     </div>
   </div>
@@ -677,12 +798,11 @@
         </div>
       </div>
 
-      <!-- Kênh + Phụ trách -->
+      <!-- Kênh + Nhân sự -->
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Kênh triển khai *</label>
           <select class="form-select" id="f-channel">
-            <option value="">-- Chọn kênh --</option>
             <option value="">-- Chọn kênh --</option>
             <option value="ch-fanpage">Fanpage</option>
             <option value="ch-hotline">Hotline</option>
@@ -692,7 +812,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Người phụ trách *</label>
+          <label class="form-label">Nhân sự nhận thông tin *</label>
           <select class="form-select" id="f-owner">
             <option value="">-- Chọn nhân sự --</option>
             <option>Ngọc</option>
@@ -959,8 +1079,6 @@ function openEditModal(idx) {
   editingIdx = idx;
   document.getElementById('modal-title').textContent = '✏️ Chỉnh sửa chương trình';
   document.getElementById('modal-submit-btn').textContent = '💾 Lưu thay đổi';
-
-  // Fill fields
   document.getElementById('f-code').value = p.id;
   document.getElementById('f-code').readOnly = true;
   document.getElementById('f-name').value = p.name;
@@ -968,8 +1086,6 @@ function openEditModal(idx) {
   document.getElementById('f-owner').value = p.owner;
   document.getElementById('f-desc').value = p.description || '';
   document.getElementById('f-cond').value = p.condition || '';
-
-  // Priority
   selectedPriority = p.priority;
   document.querySelectorAll('.priority-pill').forEach(pill => {
     pill.classList.remove('sel');
@@ -978,10 +1094,8 @@ function openEditModal(idx) {
         (p.priority === 'p-low'  && pill.classList.contains('low')))
       pill.classList.add('sel');
   });
-
-  // Parse dateRange "dd/mm – dd/mm" back to input[date] value
   try {
-    const parts = p.dateRange.split('–').map(s => s.trim()); // ["25/5", "26/5"]
+    const parts = p.dateRange.split('–').map(s => s.trim());
     const toISO = str => {
       const [d, m] = str.split('/');
       return `2026-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
@@ -989,8 +1103,6 @@ function openEditModal(idx) {
     document.getElementById('f-start').value = toISO(parts[0]);
     document.getElementById('f-end').value   = toISO(parts[1]);
   } catch(e) {}
-
-  // Render stores, pre-check ones that joined
   renderFormStores('');
   const joinedNames = (p.stores || []).filter(s => s.join).map(s => s.name);
   document.querySelectorAll('#store-check-list .store-check-item').forEach(el => {
@@ -999,7 +1111,6 @@ function openEditModal(idx) {
       el.querySelector('.sck-box').textContent = '✓';
     }
   });
-
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1033,7 +1144,14 @@ function doDelete() {
 // ===== RENDER TABLE =====
 function renderTable() {
   const tbody = document.getElementById('promo-table');
-  tbody.innerHTML = promos.map((p,i) => `
+  const filtered = currentFilter === 'all' ? promos : promos.filter(p => p.status === currentFilter);
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--muted);font-size:13px;">Không có chương trình nào trong mục này</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map((p,_) => {
+    const i = promos.indexOf(p);
+    return `
     <tr onclick="openDrawer(${i})" data-idx="${i}">
       <td><span class="priority ${p.priority}"></span></td>
       <td><div class="promo-name">${p.name}</div><div style="font-size:11px;color:var(--muted)">Mã: ${p.id}</div></td>
@@ -1049,7 +1167,7 @@ function renderTable() {
         </div>
       </td>
     </tr>
-  `).join('');
+  `}).join('');
 }
 
 // ===== DRAWER =====
@@ -1060,7 +1178,7 @@ function openDrawer(idx) {
   document.querySelector(`tr[data-idx="${idx}"]`).classList.add('active-row');
 
   document.getElementById('d-title').textContent = p.name;
-  document.getElementById('d-code').textContent = 'Mã: ' + p.id + '  ·  Phụ trách: ' + p.owner;
+  document.getElementById('d-code').textContent = 'Mã: ' + p.id + '  ·  NS nhận TT: ' + p.owner;
 
   const joinCount = p.stores.filter(s=>s.join).length;
 
@@ -1070,7 +1188,7 @@ function openDrawer(idx) {
       <div class="info-row"><span class="info-label">Kênh triển khai</span><span class="info-value"><span class="promo-channel ${p.channel}" style="display:inline-block">${p.channelLabel}</span></span></div>
       <div class="info-row"><span class="info-label">Thời gian</span><span class="info-value">${p.dateRange}</span></div>
       <div class="info-row"><span class="info-label">Trạng thái</span><span class="info-value"><span class="status-badge ${p.status}">${p.statusLabel}</span></span></div>
-      <div class="info-row"><span class="info-label">Phụ trách</span><span class="info-value"><span class="owner-tag">${p.owner}</span></span></div>
+      <div class="info-row"><span class="info-label">NS nhận thông tin</span><span class="info-value"><span class="owner-tag">${p.owner}</span></span></div>
     </div>
 
     <div class="drawer-section">
@@ -1092,22 +1210,21 @@ function openDrawer(idx) {
     </div>
 
     <div class="drawer-section">
-      <div class="drawer-section-title">Cửa hàng tham gia (${joinCount}/${p.stores.length})</div>
+      <div class="drawer-section-title">Cửa hàng tham gia (${joinCount})</div>
       <div class="store-search">
         <span>🔍</span>
         <input type="text" id="store-search-input" placeholder="Tìm tên cửa hàng..." oninput="filterStores(this.value, ${idx})">
       </div>
       <div class="store-list" id="store-list-container">
-        ${p.stores.map(s => `
+        ${p.stores.filter(s => s.join).map(s => `
           <div class="store-item" data-store-name="${s.name.toLowerCase()}">
-            <div class="store-icon" style="background:${s.join ? 'rgba(34,197,94,.1)' : 'rgba(139,148,164,.1)'}">${s.icon}</div>
+            <div class="store-icon" style="background:rgba(34,197,94,.1)">${s.icon}</div>
             <div class="store-info">
               <div class="store-name">${s.name}</div>
               <div class="store-addr">${s.addr || s.dia_chi || ''}</div>
               ${s.lien_he ? `<div class="store-addr" style="color:var(--accent2)">📞 ${s.lien_he}</div>` : ''}
               ${s.mien ? `<div class="store-addr">📍 ${s.mien}</div>` : ''}
             </div>
-            <span class="store-badge ${s.join ? 'sb-yes' : 'sb-no'}">${s.join ? 'Tham gia' : 'Không tham gia'}</span>
           </div>
         `).join('')}
       </div>
@@ -1132,26 +1249,94 @@ const MASTER_STORES = [{"ma": "PHUCTEA004", "ten": "THÍCH QUẢNG ĐỨC LONG K
 
 let autoCodeCounter = 100;
 
+// ===== DYNAMIC ROW HELPERS =====
+const OWNER_OPTIONS = ['Ngọc','Tài','Trinh','Lan Anh'];
+
+function makeDynRow(type, value) {
+  const row = document.createElement('div');
+  row.className = 'dynamic-row';
+  row.style.cssText = 'display:flex;gap:6px;align-items:flex-start;';
+
+  if (type === 'owner') {
+    const sel = document.createElement('select');
+    sel.className = 'form-select owner-input';
+    sel.style.flex = '1';
+    sel.innerHTML = `<option value="">-- Chọn nhân sự --</option>` +
+      OWNER_OPTIONS.map(o => `<option${o===value?' selected':''}>${o}</option>`).join('');
+    row.appendChild(sel);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.className = `form-textarea ${type}-input`;
+    ta.style.cssText = 'flex:1;min-height:60px;';
+    ta.placeholder = type === 'desc' ? 'Nội dung, ưu đãi, mức giảm...' : 'Điều kiện, giới hạn sử dụng...';
+    ta.value = value || '';
+    row.appendChild(ta);
+  }
+
+  const delBtn = document.createElement('button');
+  delBtn.type = 'button';
+  delBtn.className = 'dyn-del-btn';
+  delBtn.title = 'Xóa';
+  delBtn.textContent = '✕';
+  delBtn.onclick = function() { delDynRow(this); };
+  row.appendChild(delBtn);
+
+  // Add (+) button only on last row of owner list
+  if (type === 'owner') {
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'dyn-add-btn';
+    addBtn.title = 'Thêm';
+    addBtn.textContent = '＋';
+    addBtn.onclick = function() { addDynRow('owner-list', 'owner'); };
+    row.appendChild(addBtn);
+  }
+  return row;
+}
+
+function addDynRow(listId, type) {
+  const list = document.getElementById(listId);
+  // Remove add buttons from all existing owner rows before appending
+  if (type === 'owner') {
+    list.querySelectorAll('.dyn-add-btn').forEach(b => b.remove());
+  }
+  list.appendChild(makeDynRow(type, ''));
+}
+
+function delDynRow(btn) {
+  const row = btn.closest('.dynamic-row');
+  const list = row.parentElement;
+  if (list.querySelectorAll('.dynamic-row').length <= 1) {
+    // Clear value instead of removing last row
+    const input = row.querySelector('select, textarea, input');
+    if (input) input.value = '';
+    return;
+  }
+  row.remove();
+}
+
+function resetDynList(listId, type) {
+  const list = document.getElementById(listId);
+  list.innerHTML = '';
+  list.appendChild(makeDynRow(type, ''));
+}
+
 function openModal() {
   editingIdx = -1;
   document.getElementById('modal-title').textContent = '＋ Thêm chương trình khuyến mãi';
   document.getElementById('modal-submit-btn').textContent = '＋ Thêm chương trình';
   document.getElementById('f-code').readOnly = false;
-  // Auto-generate code
   const now = new Date();
   const mm = String(now.getMonth()+1).padStart(2,'0');
   const dd = String(now.getDate()).padStart(2,'0');
   autoCodeCounter++;
   document.getElementById('f-code').value = `KM-${String(now.getFullYear()).slice(2)}${mm}${dd}${autoCodeCounter}`;
-
-  // Reset form
   ['f-name','f-desc','f-cond','f-start','f-end'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-channel').value = '';
   document.getElementById('f-owner').value = '';
   document.querySelectorAll('.priority-pill').forEach(p => p.classList.remove('sel'));
-  renderFormStores(''); // rebuild from master list
+  renderFormStores('');
   selectedPriority = '';
-
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1177,27 +1362,23 @@ function toggleStoreCheck(el) {
 }
 
 function submitForm() {
-  const name = document.getElementById('f-name').value.trim();
+  const name    = document.getElementById('f-name').value.trim();
   const channel = document.getElementById('f-channel').value;
-  const owner = document.getElementById('f-owner').value;
-  const start = document.getElementById('f-start').value;
-  const end = document.getElementById('f-end').value;
+  const owner   = document.getElementById('f-owner').value;
+  const start   = document.getElementById('f-start').value;
+  const end     = document.getElementById('f-end').value;
 
-  // Validation
-  if (!name) { highlight('f-name'); return; }
-  if (!channel) { highlight('f-channel'); return; }
-  if (!owner) { highlight('f-owner'); return; }
-  if (!start) { highlight('f-start'); return; }
-  if (!end) { highlight('f-end'); return; }
+  if (!name)     { highlight('f-name');    return; }
+  if (!channel)  { highlight('f-channel'); return; }
+  if (!owner)    { highlight('f-owner');   return; }
+  if (!start)    { highlight('f-start');   return; }
+  if (!end)      { highlight('f-end');     return; }
   if (!selectedPriority) { document.querySelector('.priority-group').style.outline = '2px solid var(--danger)'; return; }
 
   const channelMap = { 'ch-fanpage':'Fanpage', 'ch-hotline':'Hotline', 'ch-zalo':'Zalo Phòng', 'ch-cuahang':'Cửa hàng', 'ch-all':'Tất cả kênh' };
-
-  // Format date dd/mm
   const fmt = d => { const [y,m,day] = d.split('-'); return `${day}/${m}`; };
   const dateRange = `${fmt(start)} – ${fmt(end)}`;
 
-  // Collect stores
   const stores = [];
   document.querySelectorAll('#store-check-list .store-check-item').forEach(el => {
     stores.push({
@@ -1212,25 +1393,19 @@ function submitForm() {
 
   const newPromo = {
     id: document.getElementById('f-code').value,
-    name,
-    channel,
+    name, channel,
     channelLabel: channelMap[channel],
     dateRange,
-    dateNote: 'Mới thêm',
-    dateColor: 'var(--accent2)',
-    progress: 0,
-    progressColor: 'var(--accent)',
-    status: 's-upcoming',
-    statusLabel: 'Sắp tới',
-    owner,
-    priority: selectedPriority,
+    dateNote: 'Mới thêm', dateColor: 'var(--accent2)',
+    progress: 0, progressColor: 'var(--accent)',
+    status: 's-upcoming', statusLabel: 'Sắp tới',
+    owner, priority: selectedPriority,
     description: document.getElementById('f-desc').value.trim() || 'Chưa có mô tả.',
-    condition: document.getElementById('f-cond').value.trim() || 'Chưa có điều kiện.',
+    condition:   document.getElementById('f-cond').value.trim() || 'Chưa có điều kiện.',
     stores
   };
 
   if (editingIdx >= 0) {
-    // EDIT MODE: preserve status/progress/colors from existing
     const existing = promos[editingIdx];
     newPromo.status        = existing.status;
     newPromo.statusLabel   = existing.statusLabel;
@@ -1250,7 +1425,6 @@ function submitForm() {
   document.querySelector('.stat-card.orange .stat-value').textContent = promos.filter(p=>p.status==='s-live').length;
   document.querySelector('.stat-card.blue .stat-value').textContent   = promos.filter(p=>p.status==='s-upcoming').length;
 }
-
 function highlight(id) {
   const el = document.getElementById(id);
   el.style.borderColor = 'var(--danger)';
@@ -1268,9 +1442,447 @@ function showToast(msg, color) {
 }
 
 // ===== MISC =====
+// ===== PAGE SWITCHING =====
+const PAGE_CTKM = document.getElementById('main') ? null : null; // handled inline
 function setNav(el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
+}
+function showCTKM(el) {
+  setNav(el);
+  document.getElementById('page-ch').style.display = 'none';
+  // show all CTKM elements
+  ['header','notice-bar-wrap','stats-wrap','grid2-wrap'].forEach(id => {
+    const el2 = document.getElementById(id); if(el2) el2.style.display='';
+  });
+  // fallback: show everything except page-ch inside main
+  document.querySelectorAll('#main > *:not(#page-ch):not(#ch-modal-overlay)').forEach(el2 => el2.style.display = '');
+}
+function showCH(el) {
+  setNav(el);
+  document.querySelectorAll('#main > *:not(#page-ch):not(#ch-modal-overlay)').forEach(el2 => el2.style.display = 'none');
+  document.getElementById('page-ch').style.display = 'block';
+  chRender();
+}
+
+// ===== THÔNG TIN CH DATA =====
+const CH_STORES = [
+  {ma:'PHUCTEA003',ten:'TÔN ĐỨC THẮNG CAO LÃNH',dia_chi:'(Gần ngã 3 Tôn Đức Thắng và Thiên Hộ Dương) 46 đường Tôn Đức Thắng, phường Hoà Thuận, TP. Cao Lãnh, Đồng Tháp',lien_he:'0789825702 / 0943227742',mo_hinh:'Take away',mien:'Miền Tây',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)\n*Đơn dưới 50,000đ phí giao hàng 5,000đ/km'},
+  {ma:'PHUCTEA004',ten:'THÍCH QUẢNG ĐỨC LONG KHÁNH',dia_chi:'02 Thích Quảng Đức, phường Xuân An, TP. Long Khánh, Đồng Nai',lien_he:'0941835373',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA006',ten:'PHAN RANG',dia_chi:'(Gần Lẩu bò Sáu Hít) 117 Trần Quang Diệu, phường Thanh Sơn, Phan Rang-Tháp Chàm, Ninh Thuận',lien_he:'0933800585',mo_hinh:'Standard',mien:'Miền Trung',gio:'26-29',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)\n*Đơn dưới 50,000đ phụ thu 10,000đ/đơn và phí giao hàng 5,000đ/km'},
+  {ma:'PHUCTEA007',ten:'TÔN ĐỨC THẮNG LONG THÀNH',dia_chi:'(Đối diện Bánh kem Ngọc Trai, kế Tiệm Lẩu Nhà Nì) Tôn Đức Thắng, thị trấn Long Thành, huyện Long Thành, Đồng Nai',lien_he:'090 8983390',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA023',ten:'TRẢNG DÀI',dia_chi:'(Đối diện trường ĐH Công Nghệ Đồng Nai) đường Nguyễn Khuyến, tổ 2, khu phố 5, phường Trảng Dài, TP. Biên Hòa, Đồng Nai',lien_he:'',mo_hinh:'Standard',mien:'Miền Nam',gio:'25-28',cong_thuc:'Đường Chung',ship:'Giao hàng cho đơn từ 60,000đ\n(Phí giao hàng liên hệ cửa hàng)'},
+  {ma:'PHUCTEA034',ten:'NGUYỄN AN NINH DĨ AN',dia_chi:'(Gần Ga Dĩ An) Số 352 đường Nguyễn An Ninh, thị xã Dĩ An, huyện Dĩ An, Bình Dương',lien_he:'0969122221',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA044',ten:'AN NHƠN',dia_chi:'177 Đường Nguyễn Sinh Sắc nối dài, G1 Khu đô thị mới Bắc Tân An, phường Bình Định, thị xã An Nhơn, Bình Định',lien_he:'0964621777',mo_hinh:'Standard',mien:'Miền Trung',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA045',ten:'PHÚ TÀI',dia_chi:'(Đối diện công viên Phú Tài) Số 1736 đường Hùng Vương, phường Trần Quang Diệu, TP. Quy Nhơn, Bình Định',lien_he:'0974733554',mo_hinh:'Standard',mien:'Miền Trung',gio:'24-27',cong_thuc:'Đường Chung',ship:'Khác'},
+  {ma:'PHUCTEA056',ten:'BÌNH TÂN VĨNH LONG',dia_chi:'(Đối diện cây xăng Tân Quới) ấp Tân Thuận, xã Tân Quới, huyện Bình Tân, Vĩnh Long',lien_he:'0973998905 / 0377330738',mo_hinh:'Standard',mien:'Miền Tây',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA059',ten:'MỸ PHƯỚC BẾN CÁT',dia_chi:'265 đường 30/4, khu phố 2, phường Mỹ Phước, thị xã Bến Cát, Bình Dương',lien_he:'0365611053',mo_hinh:'Take away',mien:'Miền Nam',gio:'',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 25,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 50,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA062',ten:'BẾN LỨC',dia_chi:'(gần cổng chào Bến Lức) 62 Nguyễn Hữu Thọ, thị trấn Bến Lức, huyện Bến Lức, Long An',lien_he:'0397938240',mo_hinh:'Standard',mien:'Miền Tây',gio:'25-28',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA068',ten:'HÀ LAM',dia_chi:'79, Lý Tự Trọng, Thị Trấn Hà Lam, Huyện Thăng Bình, Quảng Nam',lien_he:'0934783830 / 0932440150',mo_hinh:'Standard',mien:'Miền Trung',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA076',ten:'TRỊ AN',dia_chi:'(Sát Mỳ cay Seoul, đầu KCN Sông Mây) 329 đường Tây Lạc (đường 767), ấp Bùi Chu, xã Bắc Sơn, huyện Trảng Bom, Đồng Nai',lien_he:'0343980445',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA091',ten:'BÌNH CHÂU',dia_chi:'Ấp Thanh Bình 3, xã Bình Châu, huyện Xuyên Mộc, Bà Rịa - Vũng Tàu',lien_he:'0363678579',mo_hinh:'Standard',mien:'Miền Nam',gio:'22-25',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA094',ten:'NINH PHƯỚC',dia_chi:'(Gần Cầu Phú Quý & Chợ Phú Quý) 206 Quốc lộ 1, thị trấn Phước Dân, huyện Ninh Phước, Ninh Thuận',lien_he:'0919636285',mo_hinh:'Standard',mien:'Miền Trung',gio:'26-29',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)\n*Đơn dưới 50,000đ phụ thu 10,000đ/đơn và phí giao hàng 5,000đ/km'},
+  {ma:'PHUCTEA099',ten:'BÌNH MINH',dia_chi:'(Đối diện Công An phường Cái Vồn) Số 144 Nguyễn Văn Thảnh, khóm 5, phường Cái Vồn, thị xã Bình Minh, Vĩnh Long',lien_he:'0702526831',mo_hinh:'Standard',mien:'Miền Tây',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA101',ten:'VĨNH AN',dia_chi:'Số 169 đường Quang Trung, KP3, thị trấn Vĩnh An, huyện Vĩnh Cửu, Đồng Nai',lien_he:'0985886307',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA107',ten:'MỸ PHƯỚC 2 BẾN CÁT',dia_chi:'68 đường XC2, khu phố 3, phường Mỹ Phước, thị xã Bến Cát, Bình Dương',lien_he:'0762974730',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 25,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 50,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA108',ten:'Ô MÔN',dia_chi:'1251 đường Nguyễn Trãi, phường Châu Văn Liêm, quận Ô Môn, TP. Cần Thơ',lien_he:'0949977902',mo_hinh:'Standard',mien:'Miền Tây',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA111',ten:'BÀU BÀNG',dia_chi:'Số A6, Căn 47, Phố Thương Mại Bàu Bàng, Đ. NC, xã Lai Uyên, huyện Bàu Bàng, Bình Dương',lien_he:'0823931292',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEACENTER001',ten:'CẦN THƠ',dia_chi:'200 Trần Hưng Đạo, phường An Nghiệp, quận Ninh Kiều, TP. Cần Thơ',lien_he:'0964977085',mo_hinh:'Standard',mien:'Miền Tây',gio:'26-29',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA114',ten:'MỸ PHƯỚC 3 BẾN CÁT',dia_chi:'Lô J55, đường NE8, Mỹ Phước 3, phường Thới Hòa, thị xã Bến Cát, Bình Dương',lien_he:'0762974730',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 25,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 50,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA116',ten:'AN TÂY',dia_chi:'83A đường DT744, ấp An Thành, xã An Tây, thị xã Bến Cát, Bình Dương',lien_he:'0767739749',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)\n*Hóa đơn trên 200,000đ miễn phí giao hàng'},
+  {ma:'PHUCTEA120',ten:'CHƠN THÀNH',dia_chi:'(Đối diện TTTM và Plaza Chơn Thành) Tổ 1, khu phố 1, phường Hưng Long, thị xã Chơn Thành, Bình Phước',lien_he:'0862119087',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\nMiễn phí giao hàng 07km cho hóa đơn từ 150,000đ\nMiễn phí giao hàng 10km cho hóa đơn từ 200,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA128',ten:'GÒ CÔNG TÂY',dia_chi:'(Gần Trường THPT Vĩnh Bình) ấp Bình Hoà Đông, xã Bình Nhì, huyện Gò Công Tây, Tiền Giang',lien_he:'0847422578 / 0947422578',mo_hinh:'Standard',mien:'Miền Tây',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA130',ten:'THỦ ĐỨC',dia_chi:'33 Chương Dương, phường Linh Chiểu, quận Thủ Đức, TP. Thủ Đức, Hồ Chí Minh',lien_he:'0386266590',mo_hinh:'Take away',mien:'Miền Nam',gio:'25-28',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 50,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA135',ten:'VÕ NGUYÊN GIÁP TRÀ VINH',dia_chi:'TNR Amaluna Trà Vinh, C2-16, Võ Nguyên Giáp, phường 7, TP. Trà Vinh (Gần siêu thị GO)',lien_he:'0932720388',mo_hinh:'Standard',mien:'Miền Tây',gio:'25-28',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA137',ten:'VĨNH TÂN',dia_chi:'Số nhà D-32.37 KDC Sun Casa Central, phường Vĩnh Tân, TP. Tân Uyên, Bình Dương',lien_he:'',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)\n*Hóa đơn trên 200,000đ miễn phí giao hàng'},
+  {ma:'PHUCTEA138',ten:'TRẦN HOÀNG NA CẦN THƠ',dia_chi:'151/47, khu vực 2, đường Trần Hoàng Na, phường Hưng Lợi, quận Ninh Kiều, TP. Cần Thơ',lien_he:'',mo_hinh:'Take away',mien:'Miền Tây',gio:'26-29',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA139',ten:'HÒA LẠC HÀ NỘI',dia_chi:'Số 360, thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hà Nội',lien_he:'0964472197 / 0984379693',mo_hinh:'Standard',mien:'Miền Bắc',gio:'27-30',cong_thuc:'Tách Đường',ship:'Bán kính dưới 02km: Miễn phí giao hàng\nBán kính 02-04km: Phí giao hàng 5,000đ/hóa đơn\nBán kính 04-06km: Phí giao hàng 10,000đ/hóa đơn\nBán kính từ 06km+: 10,000đ + 5,000đ/km'},
+  {ma:'PHUCTEA140',ten:'NGUYỄN VĂN KHỐI GÒ VẤP',dia_chi:'253, Nguyễn Văn Khối, phường 9, quận Gò Vấp, HCM',lien_he:'0901233964',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 04km cho hóa đơn từ 65,000đ\nMiễn phí giao hàng 10km cho hóa đơn từ 10 ly\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA143',ten:'THỚI HÒA BẾN CÁT',dia_chi:'198 đường D10, khu phố 6, phường Thới Hòa, thị xã Bến Cát, Bình Dương',lien_he:'084 2022698',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 25,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 50,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA147',ten:'PHÚ LỢI THỦ DẦU MỘT',dia_chi:'Số 275, DT743, Phường Phú Lợi, Thành Phố Thủ Dầu Một, Tỉnh Bình Dương',lien_he:'0978544598',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA148',ten:'LÊ LỢI LAI VUNG',dia_chi:'(Dưới chân cầu Hòa Long) 423, Lê Lợi, Khóm 1, Thị trấn Lai Vung, Huyện Lai Vung, Đồng Tháp',lien_he:'0774005312',mo_hinh:'Take away',mien:'Miền Tây',gio:'23-26',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\nMiễn phí giao hàng 08km cho hóa đơn từ 250,000đ\nMiễn phí giao hàng 10km cho hóa đơn từ 500,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA149',ten:'HÙNG VƯƠNG ĐỒNG XOÀI',dia_chi:'74, Hùng Vương, Phường Tân Bình, Thành Phố Đồng Xoài, Bình Phước',lien_he:'096 7704734',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\nMiễn phí giao hàng 08km cho hóa đơn từ 250,000đ\nMiễn phí giao hàng 10km cho hóa đơn từ 500,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA150',ten:'CHỬ ĐỒNG TỬ TÂN BÌNH',dia_chi:'43, Chử Đồng Tử, phường 7, quận Tân Bình, TP. HCM',lien_he:'0901777839',mo_hinh:'Xe đẩy',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 01km cho hóa đơn từ 50,000đ\n(Các km tiếp theo cửa hàng book đơn vị giao hàng khác)'},
+  {ma:'PHUCTEA151',ten:'BÌNH SƠN LONG THÀNH',dia_chi:'(Kế bên quán cà phê Phố) 411, DT769, ấp 1, xã Bình Sơn, huyện Long Thành, Đồng Nai',lien_he:'0913614999',mo_hinh:'Xe đẩy',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\nMiễn phí giao hàng 08km cho hóa đơn từ 250,000đ\nMiễn phí giao hàng 10km cho hóa đơn từ 500,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA152',ten:'VÕ OANH BÌNH THẠNH',dia_chi:'42, Võ Oanh, phường 25, quận Bình Thạnh, TP. HCM',lien_he:'0702526508',mo_hinh:'Xe đẩy',mien:'Miền Nam',gio:'25-28',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 01km cho hóa đơn từ 50,000đ\n(Các km tiếp theo cửa hàng book đơn vị giao hàng khác)'},
+  {ma:'PHUCTEA153',ten:'HỒ THỊ THƯỞNG THỚI LAI',dia_chi:'(Đối diện Công an Thị trấn Thới Lai) Ấp Thới Thuận A, thị trấn Thới Lai, huyện Thới Lai, TP. Cần Thơ',lien_he:'0939070723',mo_hinh:'Xe đẩy',mien:'Miền Tây',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA095',ten:'CÁI TẮC',dia_chi:'(Kế bên Điện máy xanh) 37 QL61, Ấp Tân Phú A, Thị trấn Cái Tắc, Châu Thành A, Hậu Giang',lien_he:'0767992374',mo_hinh:'Xe đẩy',mien:'Miền Tây',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA155',ten:'PHÚ CHÁNH',dia_chi:'742, đường Huỳnh Văn Lũy, phường Phú Chánh, Thành phố Tân Uyên, Bình Dương',lien_he:'0968145915',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA156',ten:'ĐINH ĐỨC THIỆN BÌNH CHÁNH',dia_chi:'D12/56A, Huỳnh Văn Trí, Ấp 8, xã Bình Chánh, huyện Bình Chánh, TP. Hồ Chí Minh',lien_he:'0987886818 / 0931513283',mo_hinh:'Xe đẩy',mien:'Miền Nam',gio:'23-26',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 50,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA157',ten:'ĐOÀN THỊ ĐIỂM XUÂN LỘC',dia_chi:'18 Đoàn Thị Điểm, Thị trấn Gia Ray, Huyện Xuân Lộc, Đồng Nai',lien_he:'0878888860',mo_hinh:'Standard',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\nMiễn phí giao hàng 08km cho hóa đơn từ 250,000đ\nMiễn phí giao hàng 10km cho hóa đơn từ 500,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA158',ten:'ĐỨC HÒA TÂY NINH',dia_chi:'523, TL 825, Ấp Bình Tiền 2, Xã Đức Hoà Hạ, Huyện Đức Hoà, Tỉnh Long An',lien_he:'0839747839',mo_hinh:'Xe đẩy',mien:'Miền Nam',gio:'23-26',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA159',ten:'TÂN PHƯỚC KHÁNH',dia_chi:'78, Lý Tự Trọng, Tổ 3, Khu Phố Khánh Hội, Tân Phước Khánh, Thành phố Tân Uyên, Tỉnh Bình Dương',lien_he:'0968976338',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA160',ten:'CẦU TRÀM',dia_chi:'(Đối diện Cầu Tràm Quán) 254, Ấp Cầu Tràm, Xã Long Trạch, Huyện Cần Đước, Tỉnh Long An',lien_he:'0766849968',mo_hinh:'Xe đẩy',mien:'Miền Tây',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA161',ten:'ĐỖ XUÂN HỢP',dia_chi:'575A, Đỗ Xuân Hợp, Phường Phước Long, TP. Hồ Chí Minh',lien_he:'0329515505',mo_hinh:'Take away',mien:'Miền Nam',gio:'25-28',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 02km cho hóa đơn từ 50,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA162',ten:'THẠNH PHÚ VĨNH CỬU',dia_chi:'(Cách BIDV Thạnh Phú 2 căn) ĐT768, Tổ 8, Ấp 5, Xã Thạnh Phú, Huyện Vĩnh Cửu, Tỉnh Đồng Nai',lien_he:'',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA163',ten:'TÂN NINH TÂY NINH',dia_chi:'1178, Cách Mạng Tháng 8, Phường 4, Thành Phố Tây Ninh (ngay đèn đỏ cách Con Cưng 02 căn)',lien_he:'',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA164',ten:'NGUYỄN VĂN LINH BÀ RỊA',dia_chi:'219 Nguyễn Văn Linh, Phường Phước Nguyên, Thành Phố Bà Rịa, Tỉnh Bà Rịa - Vũng Tàu',lien_he:'',mo_hinh:'Take away',mien:'Miền Nam',gio:'24-27',cong_thuc:'Tách Đường',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+  {ma:'PHUCTEA165',ten:'SÓC TRĂNG',dia_chi:'72 Lê Lợi, Khu Phố 4, Phường 6, Thị Xã Sóc Trăng, Sóc Trăng',lien_he:'',mo_hinh:'Take away',mien:'Miền Tây',gio:'24-27',cong_thuc:'Đường Chung',ship:'Miễn phí giao hàng 03km cho hóa đơn từ 50,000đ\nMiễn phí giao hàng 05km cho hóa đơn từ 65,000đ\n(Phí giao hàng 5,000đ/km cho mỗi km tiếp theo)'},
+];
+
+const CH_MIEN_ICON = {'Miền Tây':'🌾','Miền Nam':'🏙️','Miền Trung':'🏔️','Miền Bắc':'❄️'};
+const CH_MIEN_COLOR = {'Miền Tây':'rgba(245,158,11,.15)','Miền Nam':'rgba(59,130,246,.15)','Miền Trung':'rgba(139,92,246,.15)','Miền Bắc':'rgba(6,182,212,.15)'};
+const CH_MIEN_TEXT = {'Miền Tây':'#d97706','Miền Nam':'#3b82f6','Miền Trung':'#7c3aed','Miền Bắc':'#0891b2'};
+
+let chCurrentMien = 'all';
+let chCurrentSearch = '';
+
+function chFilter(mien, btn) {
+  chCurrentMien = mien;
+  document.querySelectorAll('.ch-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  chRender();
+}
+function chSearch(val) { chCurrentSearch = val; chRender(); }
+
+function chRender() {
+  const q = chCurrentSearch.toLowerCase();
+  const list = CH_STORES.filter(s => {
+    const mOk = chCurrentMien === 'all' || s.mien === chCurrentMien;
+    const qOk = !q || s.ten.toLowerCase().includes(q) || s.dia_chi.toLowerCase().includes(q) || s.ma.toLowerCase().includes(q);
+    return mOk && qOk;
+  });
+  document.getElementById('ch-cnt').textContent = CH_STORES.length;
+  document.getElementById('ch-total-label').textContent = `${list.length} chi nhánh — bấm vào thẻ để xem chi tiết`;
+  const grid = document.getElementById('ch-grid');
+  const empty = document.getElementById('ch-empty');
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(s => {
+    const idx = CH_STORES.indexOf(s);
+    const bg = CH_MIEN_COLOR[s.mien] || 'rgba(59,130,246,.12)';
+    const tc = CH_MIEN_TEXT[s.mien] || '#3b82f6';
+    const ico = CH_MIEN_ICON[s.mien] || '🏪';
+    return `<div class="ch-card" onclick="chOpenModal(${idx})">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;background:${bg};color:${tc};">${ico} ${s.mien}</span>
+        <div class="ch-toggle-wrap" onclick="event.stopPropagation()">
+          <label class="ch-toggle">
+            <input type="checkbox" ${s.active!==false?'checked':''} onchange="chToggleStatus(${idx},this)">
+            <span class="ch-toggle-slider"></span>
+          </label>
+          <span class="ch-toggle-label ${s.active!==false?'on':'off'}" id="ch-card-lbl-${idx}">${s.active!==false?'Hoạt động':'Ngưng'}</span>
+        </div>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:2px;line-height:1.4;">Phúc Tea - ${s.ten}</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">${s.ma}</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;gap:7px;font-size:12px;color:var(--text-secondary);line-height:1.5;"><span>📍</span><span>${s.dia_chi}</span></div>
+        ${s.lien_he ? `<div style="display:flex;gap:7px;font-size:12px;color:var(--text-secondary);"><span>📞</span><span>${s.lien_he}</span></div>` : ''}
+        <div style="display:flex;gap:7px;font-size:12px;color:var(--text-secondary);"><span>🏪</span><span>${s.mo_hinh}</span></div>
+        ${s.gio ? `<div style="display:flex;gap:7px;font-size:12px;color:var(--text-secondary);"><span>🕐</span><span>${s.gio}</span></div>` : ''}
+      </div>
+      <div style="margin-top:12px;font-size:12px;font-weight:600;color:var(--accent);display:flex;align-items:center;justify-content:space-between;">
+        <span>Bấm để xem đầy đủ →</span>
+        <div style="display:flex;gap:5px;align-items:center;">
+          ${(s.images||[]).length > 0 ? `<span style="font-size:11px;background:rgba(59,130,246,.12);color:#3b82f6;padding:2px 8px;border-radius:99px;font-weight:700;">🖼️ ${s.images.length} ảnh</span>` : ''}
+          ${s.luuy ? `<span style="font-size:11px;background:rgba(245,158,11,.15);color:#d97706;padding:2px 8px;border-radius:99px;font-weight:700;">📝 Có lưu ý</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function chOpenModal(idx) {
+  const s = CH_STORES[idx];
+  const bg = CH_MIEN_COLOR[s.mien]||'rgba(59,130,246,.12)';
+  const tc = CH_MIEN_TEXT[s.mien]||'#3b82f6';
+  const ico = CH_MIEN_ICON[s.mien]||'🏪';
+
+  document.getElementById('ch-modal-content').innerHTML = `
+    <div style="margin-bottom:18px;">
+      <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;background:${bg};color:${tc};">${ico} ${s.mien}</span>
+      <div style="margin-top:10px;display:flex;align-items:center;gap:10px;">
+        <label class="ch-toggle">
+          <input type="checkbox" id="ch-modal-toggle" ${s.active!==false?'checked':''} onchange="chToggleFromModal(${idx},this)">
+          <span class="ch-toggle-slider"></span>
+        </label>
+        <span id="ch-modal-status-lbl" style="font-size:13px;font-weight:700;color:${s.active!==false?'#16a34a':'#ef4444'};">
+          ${s.active!==false
+            ? '🟢 Đang hoạt động'
+            : '🔴 Ngưng hoạt động'}
+        </span>
+      </div>
+      <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:700;margin:10px 0 2px;">Phúc Tea - ${s.ten}</div>
+      <div style="font-size:12px;color:var(--muted);">${s.ma}</div>
+    </div>
+
+    <!-- Thông tin cơ bản — editable -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        Thông tin cơ bản <span style="flex:1;height:1px;background:var(--border);display:block;"></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div><div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">📍 Địa chỉ</div>
+          <textarea id="ch-f-diachi" rows="2" style="${chInputStyle()}">${s.dia_chi}</textarea></div>
+
+        <div><div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">📞 Liên hệ</div>
+          <input id="ch-f-lienhe" type="text" value="${s.lien_he||''}" style="${chInputStyle()}"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🏪 Mô hình</div>
+            <select id="ch-f-mohinh" style="${chInputStyle()}">
+              ${['Take away','Standard','Xe đẩy'].map(o=>`<option${o===s.mo_hinh?' selected':''}>${o}</option>`).join('')}
+            </select></div>
+          <div><div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🕐 Giờ hoạt động</div>
+            <input id="ch-f-gio" type="text" value="${s.gio||''}" placeholder="VD: 24-27" style="${chInputStyle()}"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🧪 Công thức</div>
+            <select id="ch-f-congthuc" style="${chInputStyle()}">
+              ${['Đường Chung','Tách Đường'].map(o=>`<option${o===s.cong_thuc?' selected':''}>${o}</option>`).join('')}
+            </select></div>
+          <div><div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px;">🌏 Miền</div>
+            <select id="ch-f-mien" style="${chInputStyle()}">
+              ${['Miền Nam','Miền Tây','Miền Trung','Miền Bắc'].map(o=>`<option${o===s.mien?' selected':''}>${o}</option>`).join('')}
+            </select></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Ảnh menu -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        🖼️ Ảnh menu <span style="flex:1;height:1px;background:var(--border);display:block;"></span>
+      </div>
+
+      <!-- Danh sách ảnh hiện có -->
+      <div id="ch-img-list" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+        ${(s.images||[]).length === 0
+          ? `<div style="font-size:12px;color:var(--muted);font-style:italic;padding:4px 0;">Chưa có ảnh menu.</div>`
+          : (s.images||[]).map((url,i) => `
+            <div style="position:relative;width:100px;height:100px;border-radius:10px;overflow:hidden;border:1.5px solid var(--border);flex-shrink:0;">
+              <img src="${url}" alt="menu" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#f3f4f6';this.style.display='none'">
+              <button onclick="chRemoveImg(${idx},${i})" title="Xóa ảnh"
+                style="position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+            </div>`).join('')
+        }
+      </div>
+
+      <!-- Ô nhập URL + nút Thêm -->
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input id="ch-img-url" type="text" placeholder="Dán link ảnh vào đây..."
+          style="${chInputStyle()} flex:1;resize:none;"
+          onkeydown="if(event.key==='Enter'){chAddImg(${idx});event.preventDefault();}">
+        <button onclick="chAddImg(${idx})"
+          style="padding:8px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;white-space:nowrap;flex-shrink:0;">
+          ＋ Thêm
+        </button>
+      </div>
+      <div id="ch-img-error" style="font-size:11px;color:var(--danger);margin-top:4px;display:none;">URL không hợp lệ hoặc không tải được ảnh.</div>
+    </div>
+
+    <!-- Chính sách giao hàng — editable -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        🛵 Chính sách giao hàng <span style="flex:1;height:1px;background:var(--border);display:block;"></span>
+      </div>
+      <textarea id="ch-f-ship" rows="4" style="${chInputStyle()}">${s.ship}</textarea>
+    </div>
+
+    <!-- Lưu ý — editable -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+        📝 Lưu ý <span style="flex:1;height:1px;background:var(--border);display:block;"></span>
+      </div>
+      <textarea id="ch-f-luuy" rows="3" placeholder="Nhập điều cần lưu ý về cửa hàng này..." style="${chInputStyle('warning')}">${s.luuy||''}</textarea>
+    </div>
+
+    <!-- Nút lưu -->
+    <button onclick="chSave(${idx})" style="width:100%;padding:12px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:14px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;margin-bottom:8px;transition:background .2s;" onmouseover="this.style.background='#c9235a'" onmouseout="this.style.background='var(--accent)'">
+      💾 Lưu thay đổi
+    </button>
+  `;
+
+  const ov = document.getElementById('ch-modal-overlay');
+  const mo = document.getElementById('ch-modal');
+  ov.style.opacity='1'; ov.style.pointerEvents='all';
+  mo.style.transform='translateY(0) scale(1)';
+  document.body.style.overflow='hidden';
+}
+
+function chInputStyle(type) {
+  const base = 'width:100%;padding:8px 12px;border-radius:8px;font-family:\'Be Vietnam Pro\',sans-serif;font-size:13px;color:var(--text);outline:none;resize:vertical;transition:border .2s;box-sizing:border-box;';
+  if (type === 'warning') return base + 'border:1.5px solid rgba(245,158,11,.4);background:rgba(245,158,11,.06);';
+  return base + 'border:1.5px solid var(--border);background:var(--surface);';
+}
+
+function chOpenAddModal() {
+  // Clear fields
+  ['new-ten','new-ma','new-diachi','new-lienhe','new-gio','new-ship','new-luuy'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  const ov = document.getElementById('ch-add-overlay');
+  const mo = document.getElementById('ch-add-modal');
+  ov.style.opacity = '1'; ov.style.pointerEvents = 'all';
+  mo.style.transform = 'translateY(0) scale(1)';
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('new-ten').focus(), 100);
+}
+
+function chCloseAddModal() {
+  const ov = document.getElementById('ch-add-overlay');
+  const mo = document.getElementById('ch-add-modal');
+  ov.style.opacity = '0'; ov.style.pointerEvents = 'none';
+  mo.style.transform = 'translateY(20px) scale(.97)';
+  document.body.style.overflow = '';
+}
+
+function chSubmitNewStore() {
+  const ten     = document.getElementById('new-ten').value.trim();
+  const ma      = document.getElementById('new-ma').value.trim();
+  const diachi  = document.getElementById('new-diachi').value.trim();
+
+  // Validate bắt buộc
+  if (!ten) { chHighlight('new-ten'); return; }
+  if (!ma)  { chHighlight('new-ma');  return; }
+  if (!diachi) { chHighlight('new-diachi'); return; }
+
+  // Kiểm tra mã trùng
+  if (CH_STORES.find(s => s.ma.toLowerCase() === ma.toLowerCase())) {
+    chHighlight('new-ma');
+    showToast('⚠️ Mã cửa hàng đã tồn tại!', 'var(--danger)');
+    return;
+  }
+
+  CH_STORES.push({
+    ma,
+    ten,
+    dia_chi:    diachi,
+    lien_he:    document.getElementById('new-lienhe').value.trim(),
+    mo_hinh:    document.getElementById('new-mohinh').value,
+    mien:       document.getElementById('new-mien').value,
+    gio:        document.getElementById('new-gio').value.trim(),
+    cong_thuc:  document.getElementById('new-congthuc').value,
+    ship:       document.getElementById('new-ship').value.trim(),
+    luuy:       document.getElementById('new-luuy').value.trim(),
+    active:     true,
+    images:     []
+  });
+
+  chCloseAddModal();
+  chRender();
+  showToast('✅ Đã thêm cửa hàng ' + ten + '!', 'var(--accent3)');
+}
+
+function chHighlight(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.borderColor = 'var(--danger)';
+  el.focus();
+  setTimeout(() => el.style.borderColor = '', 2000);
+}
+
+function chToggleStatus(idx, cb) {
+  CH_STORES[idx].active = cb.checked;
+  const lbl = document.getElementById('ch-card-lbl-' + idx);
+  if (lbl) {
+    lbl.textContent = cb.checked ? 'Hoạt động' : 'Ngưng';
+    lbl.className = 'ch-toggle-label ' + (cb.checked ? 'on' : 'off');
+  }
+  showToast(cb.checked ? '🟢 Đã bật hoạt động' : '🔴 Đã ngưng hoạt động', cb.checked ? 'var(--accent3)' : 'var(--danger)');
+}
+
+function chToggleFromModal(idx, cb) {
+  CH_STORES[idx].active = cb.checked;
+  const lbl = document.getElementById('ch-modal-status-lbl');
+  if (lbl) {
+    lbl.textContent = cb.checked ? '🟢 Đang hoạt động' : '🔴 Ngưng hoạt động';
+    lbl.style.color = cb.checked ? '#16a34a' : '#ef4444';
+  }
+  showToast(cb.checked ? '🟢 Đã bật hoạt động' : '🔴 Đã ngưng hoạt động', cb.checked ? 'var(--accent3)' : 'var(--danger)');
+}
+
+function chAddImg(idx) {
+  const input = document.getElementById('ch-img-url');
+  const errEl = document.getElementById('ch-img-error');
+  const url = input.value.trim();
+  if (!url) return;
+
+  // Basic URL check
+  if (!url.startsWith('http')) {
+    errEl.style.display = 'block';
+    errEl.textContent = 'URL phải bắt đầu bằng http:// hoặc https://';
+    return;
+  }
+
+  const s = CH_STORES[idx];
+  if (!s.images) s.images = [];
+
+  // Test load image
+  const img = new Image();
+  img.onload = function() {
+    s.images.push(url);
+    input.value = '';
+    errEl.style.display = 'none';
+    // Re-render just the image list
+    const list = document.getElementById('ch-img-list');
+    if (list) list.outerHTML = buildImgList(idx, s);
+    showToast('✅ Đã thêm ảnh menu!', 'var(--accent3)');
+  };
+  img.onerror = function() {
+    errEl.style.display = 'block';
+    errEl.textContent = 'Không tải được ảnh. Kiểm tra lại URL.';
+  };
+  img.src = url;
+}
+
+function chRemoveImg(idx, imgIdx) {
+  const s = CH_STORES[idx];
+  if (!s.images) return;
+  s.images.splice(imgIdx, 1);
+  const list = document.getElementById('ch-img-list');
+  if (list) list.outerHTML = buildImgList(idx, s);
+  showToast('🗑️ Đã xóa ảnh', 'var(--muted)');
+}
+
+function buildImgList(idx, s) {
+  const imgs = s.images || [];
+  const inner = imgs.length === 0
+    ? `<div style="font-size:12px;color:var(--muted);font-style:italic;padding:4px 0;">Chưa có ảnh menu.</div>`
+    : imgs.map((url, i) => `
+        <div style="position:relative;width:100px;height:100px;border-radius:10px;overflow:hidden;border:1.5px solid var(--border);flex-shrink:0;">
+          <img src="${url}" alt="menu" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#f3f4f6';this.style.display='none'">
+          <button onclick="chRemoveImg(${idx},${i})" title="Xóa ảnh"
+            style="position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+        </div>`).join('');
+  return `<div id="ch-img-list" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;">${inner}</div>`;
+}
+
+function chSave(idx) {
+  const s = CH_STORES[idx];
+  s.dia_chi   = document.getElementById('ch-f-diachi').value.trim();
+  s.lien_he   = document.getElementById('ch-f-lienhe').value.trim();
+  s.mo_hinh   = document.getElementById('ch-f-mohinh').value;
+  s.gio       = document.getElementById('ch-f-gio').value.trim();
+  s.cong_thuc = document.getElementById('ch-f-congthuc').value;
+  s.mien      = document.getElementById('ch-f-mien').value;
+  s.ship      = document.getElementById('ch-f-ship').value.trim();
+  s.luuy      = document.getElementById('ch-f-luuy').value.trim();
+  // images already saved live via chAddImg/chRemoveImg
+  chModalClose();
+  chRender();
+  showToast('✅ Đã lưu thông tin cửa hàng!', 'var(--accent2)');
+}
+function chModalClose() {
+  const ov = document.getElementById('ch-modal-overlay');
+  const mo = document.getElementById('ch-modal');
+  ov.style.opacity='0'; ov.style.pointerEvents='none';
+  mo.style.transform='translateY(20px) scale(.97)';
+  document.body.style.overflow='';
+}
+function chCloseModal(e) { if(e.target===document.getElementById('ch-modal-overlay')) chModalClose(); }
+
+let currentFilter = 'all';
+function filterByStatus(status, el) {
+  currentFilter = status;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
 }
 function filterChip(el) {
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
@@ -1345,7 +1957,7 @@ function addCustomStore() {
 }
 
 
-renderTable();
+renderTable(); // initial render
 </script>
 </body>
 </html>
