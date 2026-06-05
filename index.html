@@ -294,7 +294,7 @@
   .note-box {
     background: rgba(249,115,22,.06); border: 1px solid rgba(249,115,22,.2);
     border-radius: 10px; padding: 12px 14px; font-size: 13px; line-height: 1.6;
-    color: var(--text);
+    color: var(--text); white-space: pre-line;
   }
 
   /* PROGRESS BIG */
@@ -1271,7 +1271,13 @@ function promoFromSheet(row) {
   const p = {};
   for (const [key, val] of Object.entries(row)) {
     const k = PROMO_MAP[key] || key;
-    p[k] = (val === null || val === undefined) ? '' : String(val).trim();
+    // Giữ nguyên \n cho các trường text dài, chỉ trim các trường khác
+    const textFields = ['description', 'condition', 'Mô tả chương trình', 'Điều kiện áp dụng'];
+    if (textFields.includes(key)) {
+      p[k] = (val === null || val === undefined) ? '' : String(val);
+    } else {
+      p[k] = (val === null || val === undefined) ? '' : String(val).trim();
+    }
   }
 
   // Kênh triển khai
