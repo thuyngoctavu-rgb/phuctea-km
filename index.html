@@ -1188,11 +1188,25 @@ const PROMO_MAP_REV = Object.fromEntries(Object.entries(PROMO_MAP).map(([vi,en])
 
 // Kênh map
 const KENH_MAP = {
-  'Fanpage':      { channel:'ch-fanpage', channelLabel:'Fanpage'     },
-  'Hotline':      { channel:'ch-hotline', channelLabel:'Hotline'     },
-  'Zalo Phòng':   { channel:'ch-zalo',    channelLabel:'Zalo Phòng'  },
-  'Cửa hàng':     { channel:'ch-cuahang', channelLabel:'Cửa hàng'    },
-  'Tất cả kênh':  { channel:'ch-all',     channelLabel:'Tất cả kênh' },
+  'Fanpage':        { channel:'ch-fanpage', channelLabel:'Fanpage'     },
+  'fanpage':        { channel:'ch-fanpage', channelLabel:'Fanpage'     },
+  'Facebook':       { channel:'ch-fanpage', channelLabel:'Fanpage'     },
+  'Hotline':        { channel:'ch-hotline', channelLabel:'Hotline'     },
+  'hotline':        { channel:'ch-hotline', channelLabel:'Hotline'     },
+  'Zalo Phòng':     { channel:'ch-zalo',    channelLabel:'Zalo Phòng'  },
+  'Zalo':           { channel:'ch-zalo',    channelLabel:'Zalo Phòng'  },
+  'zalo':           { channel:'ch-zalo',    channelLabel:'Zalo Phòng'  },
+  'Cửa hàng':       { channel:'ch-cuahang', channelLabel:'Cửa hàng'    },
+  'cửa hàng':       { channel:'ch-cuahang', channelLabel:'Cửa hàng'    },
+  'Tất cả kênh':    { channel:'ch-all',     channelLabel:'Tất cả kênh' },
+  'Tất cả':         { channel:'ch-all',     channelLabel:'Tất cả kênh' },
+  'tất cả':         { channel:'ch-all',     channelLabel:'Tất cả kênh' },
+  'All':            { channel:'ch-all',     channelLabel:'Tất cả kênh' },
+  'ch-fanpage':     { channel:'ch-fanpage', channelLabel:'Fanpage'     },
+  'ch-hotline':     { channel:'ch-hotline', channelLabel:'Hotline'     },
+  'ch-zalo':        { channel:'ch-zalo',    channelLabel:'Zalo Phòng'  },
+  'ch-cuahang':     { channel:'ch-cuahang', channelLabel:'Cửa hàng'    },
+  'ch-all':         { channel:'ch-all',     channelLabel:'Tất cả kênh' },
 };
 const PRIORITY_MAP = { 'Cao':'p-high', 'Trung bình':'p-med', 'Thấp':'p-low' };
 
@@ -1280,10 +1294,23 @@ function promoFromSheet(row) {
     }
   }
 
-  // Kênh triển khai
-  const kenhRaw = p.channel || '';
-  if (KENH_MAP[kenhRaw]) Object.assign(p, KENH_MAP[kenhRaw]);
-  else { p.channel = 'ch-all'; p.channelLabel = 'Tất cả kênh'; }
+  // Kênh triển khai — normalize để bắt kể cả dấu cách thừa, hoa thường
+  const kenhRaw = (p.channel || '').trim();
+  // Tìm chính xác trước
+  if (KENH_MAP[kenhRaw]) {
+    Object.assign(p, KENH_MAP[kenhRaw]);
+  } else {
+    // Tìm không phân biệt hoa thường
+    const kenhLower = kenhRaw.toLowerCase();
+    const kenhFound = Object.keys(KENH_MAP).find(k => k.toLowerCase() === kenhLower);
+    if (kenhFound) {
+      Object.assign(p, KENH_MAP[kenhFound]);
+    } else {
+      // Fallback: giữ text làm label, dùng ch-all
+      p.channel = 'ch-all';
+      p.channelLabel = kenhRaw || 'Tất cả kênh';
+    }
+  }
 
   // Ưu tiên — mặc định Trung bình
   p.priority = PRIORITY_MAP[p.priority] || p.priority || 'p-med';
