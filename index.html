@@ -506,45 +506,12 @@
         <span>🔍</span>
         <input type="text" placeholder="Tìm chương trình...">
       </div>
+      <button class="btn btn-ghost" id="btn-sync-promo" onclick="syncFromSheets()">🔄 Đồng bộ</button>
       <button class="btn btn-ghost">📤 Xuất báo cáo</button>
       <button class="btn btn-primary" onclick="openModal()">＋ Thêm KM</button>
     </div>
   </div>
 
-  <!-- NOTICE -->
-  <div class="notice-bar">
-    <span style="font-size:18px">⚡</span>
-    <span><strong>3 chương trình</strong> sắp hết hạn trong 48h tới — <strong>Flash Sale cuối tuần</strong> cần cập nhật thông tin trước 17:00 hôm nay</span>
-    <button class="btn btn-primary" style="margin-left:auto;padding:6px 14px;font-size:12px;white-space:nowrap;flex-shrink:0">Xem ngay →</button>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat-card orange">
-      <div class="stat-label">Đang chạy</div>
-      <div class="stat-value" style="color:var(--accent)">8</div>
-      <div class="stat-sub">chương trình active</div>
-      <div class="stat-badge up">▲ +3 so tuần trước</div>
-    </div>
-    <div class="stat-card blue">
-      <div class="stat-label">Sắp triển khai</div>
-      <div class="stat-value" style="color:var(--accent2)">6</div>
-      <div class="stat-sub">trong 7 ngày tới</div>
-      <div class="stat-badge up">📅 Gần nhất: 01/6</div>
-    </div>
-    <div class="stat-card green">
-      <div class="stat-label">Hoàn thành checklist</div>
-      <div class="stat-value" style="color:var(--accent3)">68%</div>
-      <div class="stat-sub">17/25 đầu việc xong</div>
-      <div class="stat-badge up">▲ +12% hôm nay</div>
-    </div>
-    <div class="stat-card purple">
-      <div class="stat-label">Miss thông tin</div>
-      <div class="stat-value" style="color:var(--accent4)">0</div>
-      <div class="stat-sub">tuần này</div>
-      <div class="stat-badge up">✅ Tốt!</div>
-    </div>
-  </div>
 
   <!-- MAIN GRID -->
   <div class="grid2">
@@ -589,77 +556,6 @@
 
   </div>
 
-  <!-- INFO GRID: Cảnh báo + Lịch triển khai -->
-  <div class="info-grid">
-
-    <!-- ALERTS -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title"><div class="dot" style="background:var(--danger)"></div>Cảnh báo & nhắc việc</div>
-        <span style="font-size:11px;color:var(--muted)">Hôm nay</span>
-      </div>
-      <div class="alert-list">
-        <div class="alert-item">
-          <div class="alert-icon ai-err">🚨</div>
-          <div class="alert-content">
-            <div class="alert-title">Flash Sale cần cập nhật thông tin</div>
-            <div class="alert-time">Deadline 17:00 hôm nay · Ngọc phụ trách</div>
-          </div>
-        </div>
-        <div class="alert-item">
-          <div class="alert-icon ai-warn">⏰</div>
-          <div class="alert-content">
-            <div class="alert-title">KM VIP hết hạn sau 3 ngày</div>
-            <div class="alert-time">Cần gửi tổng kết về nhóm · Tài</div>
-          </div>
-        </div>
-        <div class="alert-item">
-          <div class="alert-icon ai-warn">📝</div>
-          <div class="alert-content">
-            <div class="alert-title">Combo Mùa Hè chưa có banner</div>
-            <div class="alert-time">Cần hoàn thiện trước 30/5 · Trinh</div>
-          </div>
-        </div>
-        <div class="alert-item">
-          <div class="alert-icon ai-ok">✅</div>
-          <div class="alert-content">
-            <div class="alert-title">KM sinh nhật đã gửi 1,200 SMS</div>
-            <div class="alert-time">Hoàn thành lúc 08:30 · Lan Anh</div>
-          </div>
-        </div>
-        <div class="alert-item">
-          <div class="alert-icon ai-info">📊</div>
-          <div class="alert-content">
-            <div class="alert-title">Báo cáo tuần đã sẵn sàng</div>
-            <div class="alert-time">Lưu file vào Drive · 09:00 hôm nay</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CALENDAR -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title"><div class="dot" style="background:var(--accent2)"></div>Lịch triển khai</div>
-      </div>
-      <div class="calendar-mini">
-        <div class="cal-header">
-          <span class="cal-month">Tháng 5 – 2026</span>
-          <div class="cal-nav"><button>‹</button><button>›</button></div>
-        </div>
-        <div class="cal-grid">
-          <div class="cal-day-name">CN</div><div class="cal-day-name">T2</div><div class="cal-day-name">T3</div><div class="cal-day-name">T4</div><div class="cal-day-name">T5</div><div class="cal-day-name">T6</div><div class="cal-day-name">T7</div>
-          <div class="cal-day other-month">28</div><div class="cal-day other-month">29</div><div class="cal-day other-month">30</div><div class="cal-day">1</div><div class="cal-day has-event">2</div><div class="cal-day">3</div><div class="cal-day has-event">4</div>
-          <div class="cal-day">5</div><div class="cal-day has-event">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day has-event">9</div><div class="cal-day">10</div><div class="cal-day">11</div>
-          <div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day has-event">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day has-event">18</div>
-          <div class="cal-day has-event">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day has-event">23</div><div class="cal-day">24</div><div class="cal-day has-event">25</div>
-          <div class="cal-day today has-event">27</div><div class="cal-day">28</div><div class="cal-day has-event">29</div><div class="cal-day">30</div><div class="cal-day has-event">31</div><div class="cal-day other-month">1</div><div class="cal-day other-month">2</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
 
   <!-- ===== TRANG THÔNG TIN CH ===== -->
   <div id="page-ch" style="display:none">
@@ -670,6 +566,9 @@
       </h2>
       <button onclick="chOpenAddModal()" style="display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:13px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;transition:background .2s;white-space:nowrap;" onmouseover="this.style.background='#c9235a'" onmouseout="this.style.background='var(--accent)'">
         ＋ Thêm cửa hàng mới
+      </button>
+      <button id="btn-sync-stores" onclick="syncStoresFromSheets()" style="display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);font-size:13px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;white-space:nowrap;">
+        🔄 Đồng bộ
       </button>
     </div>
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
@@ -1089,13 +988,20 @@ function openEditModal(idx) {
       pill.classList.add('sel');
   });
   try {
-    const parts = p.dateRange.split('–').map(s => s.trim());
     const toISO = str => {
-      const [d, m] = str.split('/');
-      return `2026-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      if (!str) return '';
+      const parts = str.split('/');
+      if (parts.length === 3) {
+        let y = parseInt(parts[2]); if(y<100) y+=2000;
+        return `${y}-${String(parts[1]).padStart(2,'0')}-${String(parts[0]).padStart(2,'0')}`;
+      }
+      if (parts.length === 2) {
+        return `2026-${String(parts[1]).padStart(2,'0')}-${String(parts[0]).padStart(2,'0')}`;
+      }
+      return '';
     };
-    document.getElementById('f-start').value = toISO(parts[0]);
-    document.getElementById('f-end').value   = toISO(parts[1]);
+    document.getElementById('f-start').value = toISO(p.dateStart || '');
+    document.getElementById('f-end').value   = toISO(p.dateEnd   || '');
   } catch(e) {}
   renderFormStores('');
   const joinedNames = (p.stores || []).filter(s => s.join).map(s => s.name);
@@ -1204,6 +1110,9 @@ function openDrawer(idx) {
 
     <div class="drawer-section">
       <div class="drawer-section-title">Cửa hàng tham gia (${joinCount})</div>
+      ${joinCount === 0 && p.storesLabel ? `
+        <div style="font-size:13px;padding:10px 0;color:var(--text-secondary);">🏪 ${p.storesLabel}</div>
+      ` : `
       <div class="store-search">
         <span>🔍</span>
         <input type="text" id="store-search-input" placeholder="Tìm tên cửa hàng..." oninput="filterStores(this.value, ${idx})">
@@ -1221,6 +1130,7 @@ function openDrawer(idx) {
           </div>
         `).join('')}
       </div>
+      `}
     </div>
   `;
 
@@ -1240,19 +1150,313 @@ let selectedPriority = '';
 let editingIdx = -1; // -1 = add mode, >=0 = edit mode
 const MASTER_STORES = [{"ma": "PHUCTEA004", "ten": "THÍCH QUẢNG ĐỨC LONG KHÁNH", "dia_chi": "02 Thích Quảng Đức, phường Xuân An, TP. Long Khánh, Đồng Nai", "lien_he": "0941835373", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA006", "ten": "PHAN RANG", "dia_chi": "(Gần Lẩu bò Sáu Hít) 117 Trần Quang Diệu, phường Thanh Sơn, Phan Rang-Tháp Chàm, Ninh Thuận", "lien_he": "0933800585", "mien": "Miền Trung", "icon": "🏬"}, {"ma": "PHUCTEA007", "ten": "TÔN ĐỨC THẮNG LONG THÀNH", "dia_chi": "(Đối diện Bánh kem Ngọc Trai, kế Tiệm Lẩu Nhà Nì) Tôn Đức Thắng, thị trấn Long Thành, huyện Long Thành, Đồng Nai", "lien_he": "090 8983390", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA023", "ten": "TRẢNG DÀI", "dia_chi": "(Đối diện trường Đại Học Công Nghệ Đồng Nai) đường Nguyễn Khuyến, tổ 2, khu phố 5, phường Trảng Dài, TP. Biên Hòa, Đồng Nai", "lien_he": "", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA034", "ten": "NGUYỄN AN NINH DĨ AN", "dia_chi": "(Gần Ga Dĩ An) Số 352 đường Nguyễn An Ninh, thị xã Dĩ An, huyện Dĩ An, Bình Dương", "lien_he": "0969122221", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA044", "ten": "AN NHƠN", "dia_chi": "177 Đường Nguyễn Sinh Sắc nối dài, G1 Khu đô thị mới Bắc Tân An, phường Bình Định, thị xã An Nhơn, Bình Định", "lien_he": "0964621777", "mien": "Miền Trung", "icon": "🏬"}, {"ma": "PHUCTEA045", "ten": "PHÚ TÀI", "dia_chi": "(Đối diện công viên Phú Tài) Số 1736 đường Hùng Vương, phường Trần Quang Diệu, TP. Quy Nhơn, Bình Định", "lien_he": "0974733554", "mien": "Miền Trung", "icon": "🏬"}, {"ma": "PHUCTEA056", "ten": "BÌNH TÂN VĨNH LONG", "dia_chi": "(Đối diện cây xăng Tân Quới) ấp Tân Thuận, xã Tân Quới, huyện Bình Tân, Vĩnh Long", "lien_he": "0973998905 / 0377330738", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA059", "ten": "MỸ PHƯỚC BẾN CÁT", "dia_chi": "265 đường 30/4, khu phố 2, phường Mỹ Phước, thị xã Bến Cát, Bình Dương", "lien_he": "0365611053", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA062", "ten": "BẾN LỨC", "dia_chi": "(gần cổng chào Bến Lức) 62 Nguyễn Hữu Thọ, thị trấn Bến Lức, huyện Bến Lức, Long An", "lien_he": "0397938240", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA068", "ten": "HÀ LAM", "dia_chi": "79, Lý Tự Trọng, Thị Trấn Hà Lam, Huyện Thăng Bình, Quảng Nam", "lien_he": "0934783830 / 0932440150", "mien": "Miền Trung", "icon": "🏬"}, {"ma": "PHUCTEA076", "ten": "TRỊ AN", "dia_chi": "(Sát Mỳ cay Seoul, đầu khu công nghiệp Sông Mây) 329 đường Tây Lạc (đường 767), ấp Bùi Chu, xã Bắc Sơn, huyện Trảng Bom, Đồng Nai", "lien_he": "0343980445", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA091", "ten": "BÌNH CHÂU", "dia_chi": "Ấp Thanh Bình 3, xã Bình Châu, huyện Xuyên Mộc, Bà Rịa - Vũng Tàu", "lien_he": "0363678579", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA094", "ten": "NINH PHƯỚC", "dia_chi": "(Gần Cầu Phú Quý & Chợ Phú Quý) 206 Quốc lộ 1, thị trấn Phước Dân, huyện Ninh Phước, Ninh Thuận", "lien_he": "0919636285", "mien": "Miền Trung", "icon": "🏬"}, {"ma": "PHUCTEA099", "ten": "BÌNH MINH", "dia_chi": "(Đối diện Công An phường Cái Vồn) Số 144 Nguyễn Văn Thảnh, khóm 5, phường Cái Vồn, thị xã Bình Minh, Vĩnh Long", "lien_he": "0702526831", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA101", "ten": "VĨNH AN", "dia_chi": "Số 169 đường Quang Trung, KP3, thị trấn Vĩnh An, huyện Vĩnh Cửu, Đồng Nai", "lien_he": "0985886307", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA107", "ten": "MỸ PHƯỚC 2 BẾN CÁT", "dia_chi": "68 đường XC2, khu phố 3, phường Mỹ Phước, thị xã Bến Cát, Bình Dương", "lien_he": "0762974730", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA108", "ten": "Ô MÔN", "dia_chi": "1251 đường Nguyễn Trãi, phường Châu Văn Liêm, quận Ô Môn, TP. Cần Thơ, Cần Thơ", "lien_he": "0949977902", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA111", "ten": "BÀU BÀNG", "dia_chi": "Số A6, Căn 47, Phố Thương Mại Bàu Bàng, Đ. NC, xã Lai Uyên, huyện Bàu Bàng, Bình Dương", "lien_he": "0823931292", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA114", "ten": "MỸ PHƯỚC 3 BẾN CÁT", "dia_chi": "Lô J55, đường NE8, Mỹ Phước 3, phường Thới Hòa, thị xã Bến Cát, Bình Dương", "lien_he": "0762974730", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA116", "ten": "AN TÂY", "dia_chi": "83A đường DT744, ấp An Thành, xã An Tây, thị xã Bến Cát, Bình Dương", "lien_he": "0767739749", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA120", "ten": "CHƠN THÀNH", "dia_chi": "(Đối diện trung tâm thương mại và Plaza Chơn Thành) Tổ 1, khu phố 1, phường Hưng Long, thị xã Chơn Thành, Bình Phước", "lien_he": "0862119087", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA128", "ten": "GÒ CÔNG TÂY", "dia_chi": "(Gần Trường THPT Vĩnh Bình) ấp Bình Hoà Đông, xã Bình Nhì, huyện Gò Công Tây, Tiền Giang", "lien_he": "0847422578  / 0947422578", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA130", "ten": "THỦ ĐỨC", "dia_chi": "33 Chương Dương, phường Linh Chiểu, quận Thủ Đức, TP. Thủ Đức, Hồ Chí Minh", "lien_he": "0386266590", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA135", "ten": "VÕ NGUYÊN GIÁP TRÀ VINH", "dia_chi": "TNR Amaluna Trà Vinh -TNR Holding, C2-16, Võ Nguyên Giáp, phường 7, TP. Trà Vinh, Trà Vinh (Gần siêu thị GO)", "lien_he": "0932720388", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA137", "ten": "VĨNH TÂN", "dia_chi": "Số nhà D-32.37 KDC Sun Casa Central, phường Vĩnh Tân, TP. Tân Uyên, Bình Dương", "lien_he": "", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA138", "ten": "TRẦN HOÀNG NA CẦN THƠ", "dia_chi": "151/47, khu vực 2, đường Trần Hoàng Na, phường Hưng Lợi, quận Ninh Kiều, TP. Cần Thơ, Cần Thơ", "lien_he": "", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA139", "ten": "HÒA LẠC HÀ NỘI", "dia_chi": "Số 360, thôn 3, xã Thạch Hòa, huyện Thạch Thất, Hà Nội", "lien_he": "0964472197 / 0984379693", "mien": "Miền Bắc", "icon": "🏪"}, {"ma": "PHUCTEA140", "ten": "NGUYỄN VĂN KHỐI GÒ VẤP", "dia_chi": "253, Nguyễn Văn Khối, phường 9, quận Gò Vấp, HCM", "lien_he": "0901233964", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA143", "ten": "THỚI HÒA BẾN CÁT", "dia_chi": "198 đường D10, khu phố 6, phường Thới Hòa, thị xã Bến Cát, Bình Dương", "lien_he": "084 2022698", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA147", "ten": "PHÚ LỢI THỦ DẦU MỘT", "dia_chi": "Số 275, DT743, Phường Phú Lợi, Thành Phố Thủ Dầu Một, Tỉnh Bình Dương", "lien_he": "0978544598", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA148", "ten": "LÊ LỢI LAI VUNG", "dia_chi": "(Dưới chân cầu Hòa Long) 423, Lê Lợi, Khóm 1, Thị trấn Lai Vung, Huyện Lai Vung, Đồng Tháp", "lien_he": "0774005312", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA149", "ten": "HÙNG VƯƠNG ĐỒNG XOÀI", "dia_chi": "74, Hùng Vương, Phường Tân Bình, Thành Phố Đồng Xoài, Bình Phước", "lien_he": "096 7704734", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA150", "ten": "CHỬ ĐỒNG TỬ TÂN BÌNH", "dia_chi": "43, Chử Đồng Tử, phường 7, quận Tân Bình, TP. HCM", "lien_he": "0901777839", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA151", "ten": "BÌNH SƠN LONG THÀNH", "dia_chi": "(Kế bên quán cà phê Phố) 411, DT769, ấp 1, xã Bình Sơn, huyện Long Thành, Đồng Nai", "lien_he": "0913614999", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA152", "ten": "VÕ OANH BÌNH THẠNH", "dia_chi": "42, Võ Oanh, phường 25, quận Bình Thạnh, TP. HCM", "lien_he": "0702526508", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA153", "ten": "HỒ THỊ THƯỞNG THỚI LAI", "dia_chi": "(Đối diện Công an Thị trấn Thới Lai) Ấp Thới Thuận A, thị trấn Thới Lai, huyện Thới Lai, TP. Cần Thơ", "lien_he": "0939070723", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA095", "ten": "CÁI TẮC", "dia_chi": "(Kế bên Điện máy xanh) 37 QL61, Ấp Tân Phú A, Thị trấn Cái Tắc, Châu Thành A, Hậu Giang", "lien_he": "0767992374", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA155", "ten": "PHÚ CHÁNH", "dia_chi": "742, đường Huỳnh Văn Lũy, phường Phú Chánh, Thành phố Tân Uyên, Bình Dương", "lien_he": "0968145915", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA156", "ten": "ĐINH ĐỨC THIỆN BÌNH CHÁNH", "dia_chi": "D12/56A, Huỳnh Văn Trí, Ấp 8, xã Bình Chánh, huyện Bình Chánh, TP. Hồ Chí Minh", "lien_he": "0987886818 / 0931513283", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA157", "ten": "ĐOÀN THỊ ĐIỂM XUÂN LỘC", "dia_chi": "18 Đoàn Thị Điểm, Thị trấn Gia Ray, Huyện Xuân Lộc, Đồng Nai Từ photocopy Cảnh vào 50m (chỗ hẻm đối diện shop Tuấn Tài)", "lien_he": "0878888860", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA158", "ten": "ĐỨC HÒA TÂY NINH", "dia_chi": "523, TL 825, Ấp Bình Tiền 2, Xã Đức Hoà Hạ, Huyện Đức Hoà, Tỉnh Long An", "lien_he": "0839747839", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA159", "ten": "TÂN PHƯỚC KHÁNH", "dia_chi": "78, Lý Tự Trọng, Tổ 3, Khu Phố Khánh Hội, Tân Phước Khánh, Thành phố Tân Uyên, Tỉnh Bình Dương", "lien_he": "0968976338", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA160", "ten": "CẦU TRÀM", "dia_chi": "(Đối diện Cầu Tràm Quán) 254, Ấp Cầu Tràm, Xã Long Trạch, Huyện Cần Đước, Tỉnh Long An", "lien_he": "0766849968", "mien": "Miền Tây", "icon": "🏪"}, {"ma": "PHUCTEA161", "ten": "ĐỖ XUÂN HỢP", "dia_chi": "575A, Đỗ Xuân Hợp, Phường Phước Long, TP. Hồ Chí Minh", "lien_he": "0329515505", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA162", "ten": "THẠNH PHÚ VĨNH CỬU", "dia_chi": "(Cách BIDV Thạnh Phú 2 căn) ĐT768, Tổ 8, Ấp 5, Xã Thạnh Phú, Huyện Vĩnh Cửu, Tỉnh Đồng Nai", "lien_he": "", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA163", "ten": "TÂN NINH TÂY NINH", "dia_chi": "1178, Cách Mạng Tháng 8, Phường 4, Thành Phố Tây Ninh, Tỉnh Tây Ninh (ngay đèn đỏ cách Con Cưng 02 căn)", "lien_he": "", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA164", "ten": "NGUYỄN VĂN LINH BÀ RỊA", "dia_chi": "219 Nguyễn Văn Linh, Phường Phước Nguyên, Thành Phố Bà Rịa, Tỉnh Bà Rịa - Vũng Tàu", "lien_he": "", "mien": "Miền Nam", "icon": "🏪"}, {"ma": "PHUCTEA165", "ten": "SÓC TRĂNG", "dia_chi": "72 Lê Lợi, Khu Phố 4, Phường 6, Thị Xã Sóc Trăng, Sóc Trăng", "lien_he": "", "mien": "Miền Tây", "icon": "🏪"}];
 
-// ===== PROMO LOCALSTORAGE =====
-function promoPersist() {
-  try { localStorage.setItem('promos_data', JSON.stringify(promos)); } catch(e) {}
+// ===== GOOGLE SHEETS SYNC =====
+const GS_URL = 'https://script.google.com/macros/s/AKfycby134XS2Xd4zDIALzO78W-BOfXqXqefCU2USR6exzBIiYdHG5TutQiT56sFph4_ny9b1Q/exec';
+
+function showSyncStatus(msg, color) {
+  let el = document.getElementById('sync-status');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'sync-status';
+    el.style.cssText = 'position:fixed;bottom:80px;right:24px;font-size:12px;font-weight:600;padding:7px 14px;border-radius:8px;z-index:999;transition:opacity .4s;';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.style.background = color || '#334155';
+  el.style.color = '#fff';
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.style.opacity = '0', 2500);
 }
 
-function promoLoadFromStorage() {
+// ── Mapping tên cột Tiếng Việt ↔ key nội bộ ──
+const PROMO_MAP = {
+  'Mã chương trình':        'id',
+  'Tên chương trình':       'name',
+  'Kênh triển khai':        'channel',
+  'Nhân sự nhận thông tin': 'owner',
+  'Ngày bắt đầu':           'dateStart',
+  'Ngày kết thúc':          'dateEnd',
+  'Mô tả chương trình':     'description',
+  'Trạng thái':             'trangThai',
+  'Trạng Thái':             'trangThai',
+  'TRẠNG THÁI':             'trangThai',
+  'Điều kiện áp dụng':      'condition',
+  'Cửa hàng tham gia':      'stores',
+};
+const PROMO_MAP_REV = Object.fromEntries(Object.entries(PROMO_MAP).map(([vi,en])=>[en,vi]));
+
+// Kênh map
+const KENH_MAP = {
+  'Fanpage':      { channel:'ch-fanpage', channelLabel:'Fanpage'     },
+  'Hotline':      { channel:'ch-hotline', channelLabel:'Hotline'     },
+  'Zalo Phòng':   { channel:'ch-zalo',    channelLabel:'Zalo Phòng'  },
+  'Cửa hàng':     { channel:'ch-cuahang', channelLabel:'Cửa hàng'    },
+  'Tất cả kênh':  { channel:'ch-all',     channelLabel:'Tất cả kênh' },
+};
+const PRIORITY_MAP = { 'Cao':'p-high', 'Trung bình':'p-med', 'Thấp':'p-low' };
+
+// Tính trạng thái + hiển thị ngày từ dateStart / dateEnd
+function calcStatusFromDates(startStr, endStr) {
+  // Chấp nhận dd/mm/yyyy hoặc dd/mm/yy hoặc yyyy-mm-dd
+  function parseDate(s) {
+    if (!s) return null;
+    s = String(s).trim();
+    // dd/mm/yyyy hoặc dd/mm/yy
+    if (s.includes('/')) {
+      const parts = s.split('/');
+      if (parts.length === 3) {
+        const d = parseInt(parts[0]), mo = parseInt(parts[1]);
+        let y = parseInt(parts[2]);
+        if (y < 100) y += 2000;
+        return new Date(y, mo - 1, d);
+      }
+    }
+    // yyyy-mm-dd
+    if (s.includes('-') && s.length >= 8) {
+      return new Date(s);
+    }
+    return null;
+  }
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const start = parseDate(startStr);
+  const end   = parseDate(endStr);
+
+  // Hiển thị dd/mm
+  const fmt = d => d ? `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}` : '?';
+  const dateRange = (start && end) ? `${fmt(start)} – ${fmt(end)}` : (start ? `${fmt(start)} – ?` : '—');
+
+  let status, statusLabel, progressColor, dateNote, dateColor, progress;
+
+  if (!start && !end) {
+    status='s-upcoming'; statusLabel='Sắp tới';
+    dateNote='Chưa có ngày'; dateColor='var(--muted)';
+    progressColor='var(--accent2)'; progress=0;
+  } else if (end && today > end) {
+    // Đã kết thúc
+    status='s-ended'; statusLabel='Kết thúc';
+    const daysAgo = Math.round((today - end)/(1000*60*60*24));
+    dateNote = `Kết thúc ${daysAgo} ngày trước`; dateColor='var(--muted)';
+    progressColor='var(--muted)'; progress=100;
+  } else if (start && today < start) {
+    // Sắp tới
+    status='s-upcoming'; statusLabel='Sắp tới';
+    const daysLeft = Math.round((start - today)/(1000*60*60*24));
+    if (daysLeft === 0) { dateNote='Bắt đầu hôm nay! 🎉'; dateColor='var(--accent3)'; }
+    else if (daysLeft <= 3) { dateNote=`⏰ Còn ${daysLeft} ngày nữa`; dateColor='var(--accent)'; }
+    else { dateNote=`Còn ${daysLeft} ngày nữa`; dateColor='var(--accent2)'; }
+    progressColor='var(--accent2)'; progress=0;
+  } else {
+    // Đang chạy
+    status='s-live'; statusLabel='Đang chạy';
+    if (end) {
+      const total = end - (start || today);
+      const done  = today - (start || today);
+      progress = total > 0 ? Math.min(100, Math.round((done/total)*100)) : 50;
+      const daysLeft = Math.round((end - today)/(1000*60*60*24));
+      if (daysLeft <= 1)      { dateNote=`⏰ Còn ${daysLeft} ngày!`; dateColor='var(--danger)'; }
+      else if (daysLeft <= 3) { dateNote=`⚡ Còn ${daysLeft} ngày`; dateColor='var(--accent)'; }
+      else                    { dateNote=`Còn ${daysLeft} ngày`; dateColor='var(--accent2)'; }
+    } else {
+      progress=50; dateNote='Đang diễn ra'; dateColor='var(--accent3)';
+    }
+    progressColor='var(--accent3)';
+  }
+
+  return { dateRange, dateNote, dateColor, status, statusLabel, progress, progressColor, dateStart: startStr||'', dateEnd: endStr||'' };
+}
+
+function promoFromSheet(row) {
+  const p = {};
+  for (const [key, val] of Object.entries(row)) {
+    const k = PROMO_MAP[key] || key;
+    p[k] = (val === null || val === undefined) ? '' : String(val).trim();
+  }
+
+  // Kênh triển khai
+  const kenhRaw = p.channel || '';
+  if (KENH_MAP[kenhRaw]) Object.assign(p, KENH_MAP[kenhRaw]);
+  else { p.channel = 'ch-all'; p.channelLabel = 'Tất cả kênh'; }
+
+  // Ưu tiên — mặc định Trung bình
+  p.priority = PRIORITY_MAP[p.priority] || p.priority || 'p-med';
+
+  // Cửa hàng tham gia — nhận cả JSON array lẫn text thường
+  const storesRaw = p.stores || '';
+  p.storesLabel = typeof storesRaw === 'string' ? storesRaw.trim() : ''; // lưu text gốc để hiển thị
+  if (typeof storesRaw === 'string' && storesRaw.trim() !== '') {
+    // Thử parse JSON trước
+    try {
+      const parsed = JSON.parse(storesRaw);
+      p.stores = Array.isArray(parsed) ? parsed : [];
+    } catch(e) {
+      // Không phải JSON → chị nhập text: "Tất cả", "Cần Thơ, HCM", v.v.
+      const raw = storesRaw.trim().toLowerCase();
+      if (raw === 'tất cả' || raw === 'tất cả chi nhánh' || raw === 'all') {
+        // Đánh dấu tất cả chi nhánh tham gia
+        p.stores = CH_STORES.map(s => ({
+          icon: '🏪', name: 'Phúc Tea - ' + s.ten,
+          addr: s.dia_chi, lien_he: s.lien_he,
+          mien: s.mien, join: true
+        }));
+      } else {
+        // Danh sách tên cách nhau bởi dấu phẩy
+        const names = storesRaw.split(',').map(n => n.trim()).filter(Boolean);
+        p.stores = names.map(n => {
+          // Tìm trong CH_STORES theo tên gần đúng
+          const match = CH_STORES.find(s =>
+            s.ten.toLowerCase().includes(n.toLowerCase()) ||
+            n.toLowerCase().includes(s.ten.toLowerCase()) ||
+            (s.ma && s.ma.toLowerCase() === n.toLowerCase())
+          );
+          return {
+            icon: '🏪',
+            name: match ? 'Phúc Tea - ' + match.ten : n,
+            addr: match ? match.dia_chi : '',
+            lien_he: match ? match.lien_he : '',
+            mien: match ? match.mien : '',
+            join: true
+          };
+        });
+      }
+    }
+  }
+  if (!Array.isArray(p.stores)) p.stores = [];
+
+  // Bảng map Trạng thái tiếng Việt → nội bộ
+  const TRANG_THAI_MAP = {
+    'Đang chạy':   { status:'s-live',     statusLabel:'Đang chạy', progressColor:'var(--accent3)' },
+    'Đang Chạy':   { status:'s-live',     statusLabel:'Đang chạy', progressColor:'var(--accent3)' },
+    'Sắp diễn ra': { status:'s-upcoming', statusLabel:'Sắp tới',   progressColor:'var(--accent2)' },
+    'Sắp Diễn Ra': { status:'s-upcoming', statusLabel:'Sắp tới',   progressColor:'var(--accent2)' },
+    'Sắp tới':     { status:'s-upcoming', statusLabel:'Sắp tới',   progressColor:'var(--accent2)' },
+    'Đã kết thúc': { status:'s-ended',    statusLabel:'Kết thúc',  progressColor:'var(--muted)'   },
+    'Đã Kết Thúc': { status:'s-ended',    statusLabel:'Kết thúc',  progressColor:'var(--muted)'   },
+    'Kết thúc':    { status:'s-ended',    statusLabel:'Kết thúc',  progressColor:'var(--muted)'   },
+    'Chưa có ngày':{ status:'s-upcoming', statusLabel:'Sắp tới',   progressColor:'var(--accent2)' },
+  };
+
+  // Lấy giá trị Trạng thái — thử cả key gốc lẫn key đã map
+  const ttRaw = (p['Trạng thái'] || p['Trạng Thái'] || p.trangThai || '').trim();
+
+  if (ttRaw && TRANG_THAI_MAP[ttRaw]) {
+    // Sheets đã có trạng thái → dùng luôn, chỉ tính dateRange/dateNote từ ngày
+    const dateInfo = calcStatusFromDates(p.dateStart || '', p.dateEnd || '');
+    p.dateRange      = dateInfo.dateRange;
+    p.dateNote       = dateInfo.dateNote;
+    p.dateColor      = dateInfo.dateColor;
+    p.progress       = dateInfo.progress;
+    Object.assign(p, TRANG_THAI_MAP[ttRaw]);
+  } else {
+    // Không có trạng thái → tự tính hoàn toàn từ ngày
+    const dateInfo = calcStatusFromDates(p.dateStart || '', p.dateEnd || '');
+    Object.assign(p, dateInfo);
+  }
+
+  if (!p.id)   p.id   = 'KM-' + Date.now().toString().slice(-6);
+  if (!p.name) p.name = '(Chưa đặt tên)';
+  return p;
+}
+
+function promoToSheet(p) {
+  const statusToVi = { 's-live':'Đang chạy', 's-upcoming':'Sắp diễn ra', 's-ended':'Đã kết thúc' };
+  return {
+    'Mã chương trình':        p.id                        || '',
+    'Tên chương trình':       p.name                      || '',
+    'Kênh triển khai':        p.channelLabel              || '',
+    'Nhân sự nhận thông tin': p.owner                     || '',
+    'Ngày bắt đầu':           p.dateStart                 || '',
+    'Ngày kết thúc':          p.dateEnd                   || '',
+    'Mô tả chương trình':     p.description               || '',
+    'Trạng thái':             statusToVi[p.status]        || '',
+    'Điều kiện áp dụng':      p.condition                 || '',
+    'Cửa hàng tham gia':      p.stores ? JSON.stringify(p.stores) : '',
+  };
+}
+
+
+async function promoPersist() {
+  try { localStorage.setItem('promos_data', JSON.stringify(promos)); } catch(e) {}
+  showSyncStatus('🔄 Đang lưu...', '#f59e0b');
+  try {
+    const data = promos.map(promoToSheet);
+    await fetch(GS_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'write', sheet: 'promos', data })
+    });
+    showSyncStatus('✅ Đã lưu lên Sheets', '#22c55e');
+  } catch(e) {
+    showSyncStatus('⚠️ Lỗi kết nối, đã lưu offline', '#ef4444');
+  }
+}
+
+async function promoLoadFromStorage() {
+  try {
+    showSyncStatus('🔄 Đang tải dữ liệu...', '#3b82f6');
+    const res = await fetch(GS_URL + '?action=read&sheet=promos&t=' + Date.now());
+    const json = await res.json();
+    if (json.ok && Array.isArray(json.data) && json.data.length > 0) {
+      promos.length = 0;
+      json.data.forEach(row => promos.push(promoFromSheet(row)));
+      try { localStorage.setItem('promos_data', JSON.stringify(promos)); } catch(e) {}
+      showSyncStatus('✅ Đã tải từ Sheets', '#22c55e');
+      renderTable();
+      return;
+    }
+  } catch(e) {}
+  // Fallback: localStorage
   try {
     const saved = localStorage.getItem('promos_data');
-    if (!saved) return;
-    const parsed = JSON.parse(saved);
-    if (!Array.isArray(parsed) || parsed.length === 0) return;
-    promos.length = 0;
-    parsed.forEach(p => promos.push(p));
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        promos.length = 0;
+        parsed.forEach(p => promos.push(p));
+      }
+    }
+  } catch(e) {}
+  showSyncStatus('📦 Dùng dữ liệu offline', '#f59e0b');
+  renderTable();
+}
+
+// ── STORES SYNC ──
+async function chPersist() {
+  try { localStorage.setItem('ch_stores', JSON.stringify(CH_STORES)); } catch(e) {}
+  try {
+    await fetch(GS_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'write', sheet: 'stores', data: CH_STORES })
+    });
+  } catch(e) {}
+}
+
+async function chLoadFromStorage() {
+  try {
+    const res = await fetch(GS_URL + '?action=read&sheet=stores');
+    const json = await res.json();
+    if (json.ok && Array.isArray(json.data) && json.data.length > 0) {
+      json.data.forEach(saved => {
+        const idx = CH_STORES.findIndex(s => s.ma === saved.ma);
+        if (idx >= 0) Object.assign(CH_STORES[idx], saved);
+        else CH_STORES.push(saved);
+      });
+      return;
+    }
+  } catch(e) {}
+  // Fallback localStorage
+  try {
+    const saved = localStorage.getItem('ch_stores');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        parsed.forEach(saved => {
+          const idx = CH_STORES.findIndex(s => s.ma === saved.ma);
+          if (idx >= 0) Object.assign(CH_STORES[idx], saved);
+          else CH_STORES.push(saved);
+        });
+      }
+    }
   } catch(e) {}
 }
 
@@ -1384,9 +1588,10 @@ function submitForm() {
   if (!end)      { highlight('f-end');     return; }
   if (!selectedPriority) { document.querySelector('.priority-group').style.outline = '2px solid var(--danger)'; return; }
 
-  const channelMap = { 'ch-fanpage':'Fanpage', 'ch-hotline':'Hotline', 'ch-zalo':'Zalo Phòng', 'ch-cuahang':'Cửa hàng', 'ch-all':'Tất cả kênh' };
   const fmt = d => { const [y,m,day] = d.split('-'); return `${day}/${m}`; };
-  const dateRange = `${fmt(start)} – ${fmt(end)}`;
+  const dateStart = `${fmt(start)}/${start.split('-')[0]}`;
+  const dateEnd   = `${fmt(end)}/${end.split('-')[0]}`;
+  const dateInfo  = calcStatusFromDates(dateStart, dateEnd);
 
   const stores = [];
   document.querySelectorAll('#store-check-list .store-check-item').forEach(el => {
@@ -1400,14 +1605,13 @@ function submitForm() {
     });
   });
 
+  const channelMap = { 'ch-fanpage':'Fanpage', 'ch-hotline':'Hotline', 'ch-zalo':'Zalo Phòng', 'ch-cuahang':'Cửa hàng', 'ch-all':'Tất cả kênh' };
+
   const newPromo = {
     id: document.getElementById('f-code').value,
     name, channel,
     channelLabel: channelMap[channel],
-    dateRange,
-    dateNote: 'Mới thêm', dateColor: 'var(--accent2)',
-    progress: 0, progressColor: 'var(--accent)',
-    status: 's-upcoming', statusLabel: 'Sắp tới',
+    ...dateInfo,
     owner, priority: selectedPriority,
     description: document.getElementById('f-desc').value.trim() || 'Chưa có mô tả.',
     condition:   document.getElementById('f-cond').value.trim() || 'Chưa có điều kiện.',
@@ -1994,9 +2198,79 @@ function addCustomStore() {
 }
 
 
-chLoadFromStorage();
-promoLoadFromStorage();
-renderTable(); // initial render
+// ===== MANUAL SYNC FROM SHEETS =====
+async function syncFromSheets() {
+  const btn = document.getElementById('btn-sync-promo');
+  if (btn) { btn.textContent = '🔄 Đang tải...'; btn.disabled = true; }
+  showSyncStatus('🔄 Đang tải từ Sheets...', '#3b82f6');
+  try {
+    const res = await fetch(GS_URL + '?action=read&sheet=promos&t=' + Date.now());
+    const json = await res.json();
+
+    // Lọc bỏ dòng trống (dòng chỉ có Trạng thái từ công thức, không có tên)
+    const validRows = (json.data || []).filter(row => {
+      const ten = row['Tên chương trình'] || row['name'] || '';
+      return String(ten).trim() !== '';
+    });
+
+    if (json.ok && validRows.length > 0) {
+      promos.length = 0;
+      validRows.forEach(row => promos.push(promoFromSheet(row)));
+      try { localStorage.setItem('promos_data', JSON.stringify(promos)); } catch(e) {}
+      // Reset filter về Tất cả
+      currentFilter = 'all';
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      const allChip = document.querySelector('.chip');
+      if (allChip) allChip.classList.add('active');
+      renderTable();
+      showSyncStatus('✅ Đã đồng bộ ' + promos.length + ' chương trình!', '#22c55e');
+    } else {
+      showSyncStatus('📋 Sheets chưa có dữ liệu', '#f59e0b');
+    }
+  } catch(e) {
+    showSyncStatus('⚠️ Không kết nối được Sheets', '#ef4444');
+  }
+  if (btn) { btn.textContent = '🔄 Đồng bộ'; btn.disabled = false; }
+}
+
+async function syncStoresFromSheets() {
+  const btn = document.getElementById('btn-sync-stores');
+  if (btn) { btn.textContent = '🔄 Đang tải...'; btn.disabled = true; }
+  showSyncStatus('🔄 Đang tải cửa hàng từ Sheets...', '#3b82f6');
+  try {
+    const res = await fetch(GS_URL + '?action=read&sheet=stores&t=' + Date.now());
+    const json = await res.json();
+    if (json.ok && Array.isArray(json.data) && json.data.length > 0) {
+      json.data.forEach(saved => {
+        const idx = CH_STORES.findIndex(s => s.ma === saved.ma);
+        if (idx >= 0) Object.assign(CH_STORES[idx], saved);
+        else CH_STORES.push(saved);
+      });
+      try { localStorage.setItem('ch_stores', JSON.stringify(CH_STORES)); } catch(e) {}
+      chRender();
+      showSyncStatus('✅ Đã đồng bộ cửa hàng!', '#22c55e');
+    } else {
+      showSyncStatus('📋 Sheets chưa có dữ liệu mới', '#f59e0b');
+    }
+  } catch(e) {
+    showSyncStatus('⚠️ Không kết nối được Sheets', '#ef4444');
+  }
+  if (btn) { btn.textContent = '🔄 Đồng bộ'; btn.disabled = false; }
+}
+
+// Tự động đồng bộ mỗi 60 giây
+setInterval(() => {
+  const pageChVisible = document.getElementById('page-ch').style.display !== 'none';
+  if (pageChVisible) syncStoresFromSheets();
+  else syncFromSheets();
+}, 60000);
+
+
+(async function init() {
+  await chLoadFromStorage();
+  await promoLoadFromStorage();
+})();
+
 </script>
 </body>
 </html>
