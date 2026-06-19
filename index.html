@@ -84,6 +84,14 @@
   tbody tr.active-row td { background: rgba(249,115,22,.08); }
 
   .promo-name { font-weight: 600; }
+  .promo-name-badge {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    letter-spacing: .2px;
+  }
   .promo-channel { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 99px; display: inline-block; }
   .ch-fanpage  { background: rgba(168,85,247,.15);  color: #c084fc; }   /* tím */
   .ch-hotline  { background: rgba(239,68,68,.15);   color: #f87171; }   /* đỏ  */
@@ -1040,6 +1048,26 @@ function doDelete() {
 }
 
 
+// ===== MÀU XOAY VÒNG CHO TÊN CHƯƠNG TRÌNH =====
+const PROMO_COLORS = [
+  { bg: 'rgba(249,115,22,.18)',  color: '#fb923c' },
+  { bg: 'rgba(59,130,246,.18)',  color: '#60a5fa' },
+  { bg: 'rgba(34,197,94,.18)',   color: '#4ade80' },
+  { bg: 'rgba(168,85,247,.18)',  color: '#c084fc' },
+  { bg: 'rgba(234,179,8,.18)',   color: '#fbbf24' },
+  { bg: 'rgba(236,72,153,.18)',  color: '#f472b6' },
+  { bg: 'rgba(20,184,166,.18)',  color: '#2dd4bf' },
+  { bg: 'rgba(239,68,68,.18)',   color: '#f87171' },
+  { bg: 'rgba(99,102,241,.18)',  color: '#818cf8' },
+  { bg: 'rgba(16,185,129,.18)',  color: '#34d399' },
+];
+function getPromoColor(id) {
+  let hash = 0;
+  const str = String(id || '');
+  for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
+  return PROMO_COLORS[Math.abs(hash) % PROMO_COLORS.length];
+}
+
 // ===== RENDER TABLE =====
 function renderTable() {
   const tbody = document.getElementById('promo-table');
@@ -1053,7 +1081,12 @@ function renderTable() {
     return `
     <tr onclick="openDrawer(${i})" data-idx="${i}">
       <td><span class="priority ${p.priority}"></span></td>
-      <td><div class="promo-name">${p.name}</div><div style="font-size:11px;color:var(--muted)">Mã: ${p.id}</div></td>
+      <td>
+        <div>
+          <span class="promo-name-badge" style="background:${getPromoColor(p.id).bg};color:${getPromoColor(p.id).color}">${p.name}</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">Mã: ${p.id}</div>
+      </td>
       <td><span class="promo-channel ${p.channel}">${p.channelLabel}</span></td>
       <td><div style="font-size:12px;">${p.dateRange}</div><div style="font-size:11px;color:${p.dateColor};font-weight:600">${p.dateNote}</div></td>
       <td><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%;background:${p.progressColor}"></div></div><span class="progress-pct">${p.progress}%</span></div></td>
