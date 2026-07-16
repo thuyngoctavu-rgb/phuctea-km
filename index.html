@@ -1547,8 +1547,14 @@ async function chLoadFromStorage() {
       return;
     }
   } catch(e) {}
-  // Xóa cache cũ, chỉ dùng Sheets
-  try { localStorage.removeItem('ch_stores'); } catch(e) {}
+  try {
+    const saved = localStorage.getItem('ch_stores');
+    if (!saved) return;
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed) || parsed.length === 0) return;
+    CH_STORES.length = 0;
+    parsed.forEach(s => CH_STORES.push(s));
+  } catch(e) {}
 }
 
 let autoCodeCounter = 100;
@@ -2160,13 +2166,19 @@ function buildImgList(idx, s) {
 }
 
 function chPersist() {
-  // Disabled — dùng Google Sheets làm nguồn duy nhất
-  try { localStorage.removeItem('ch_stores'); } catch(e) {}
+  try { localStorage.setItem('ch_stores', JSON.stringify(CH_STORES)); } catch(e) {}
 }
 
 function chLoadFromStorage() {
-  // Disabled — dùng Google Sheets làm nguồn duy nhất
-  try { localStorage.removeItem('ch_stores'); } catch(e) {}
+  try {
+    const saved = localStorage.getItem('ch_stores');
+    if (!saved) return;
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed) || parsed.length === 0) return;
+    // Xóa hết rồi load lại từ storage (không merge với data cũ hardcode)
+    CH_STORES.length = 0;
+    parsed.forEach(s => CH_STORES.push(s));
+  } catch(e) {}
 }
 
 function chSave(idx) {
@@ -2321,11 +2333,9 @@ async function syncStoresFromSheets() {
     const res = await fetch(GS_URL + '?action=read&sheet=stores&t=' + Date.now());
     const json = await res.json();
     if (json.ok && Array.isArray(json.data) && json.data.length > 0) {
-      json.data.forEach(saved => {
-        const idx = CH_STORES.findIndex(s => s.ma === saved.ma);
-        if (idx >= 0) Object.assign(CH_STORES[idx], saved);
-        else CH_STORES.push(saved);
-      });
+      // Xóa hết data cũ, chỉ giữ data từ Sheets
+      CH_STORES.length = 0;
+      json.data.forEach(s => CH_STORES.push(s));
       try { localStorage.setItem('ch_stores', JSON.stringify(CH_STORES)); } catch(e) {}
       chRender();
       showSyncStatus('✅ Đã đồng bộ cửa hàng!', '#22c55e');
